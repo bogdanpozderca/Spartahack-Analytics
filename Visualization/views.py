@@ -11,5 +11,12 @@ def index(request):
 	for i in urlopen(typeFormURL):
 		jsonResults += str(i)
 	jsonResults = json.loads(jsonResults)
-	context = {}
+	keys = {"college":"textfield_4613313"}
+	colleges = {}
+	for i in jsonResults["responses"]:
+		try:
+			colleges[i["answers"][keys["college"]]] += 1
+		except KeyError:
+			colleges[i["answers"][keys["college"]]] = 1
+	context = {"colleges":colleges,"warningLim":15, "attentionLim":30}
 	return render(request, 'Visualization/index.html', context)

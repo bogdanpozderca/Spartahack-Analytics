@@ -9,8 +9,39 @@
 <body>
 	<div class = "container-fluid">
 		<div class = "row">
-		<div class = " col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class = " col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<center><h1>Better Than the Default TypeForm Report</h1></center>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = " col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<table class = "table-striped">
+					<thead><tr>
+						<th>School Name</th>
+						<th>Number of People</th>
+					</tr></thead>
+					<tbody>
+						{%for key, value in colleges.items%}
+							{%if value >= attentionLim%}
+								<tr class="danger">
+									<td>{{key}}</td>
+									<td>{{value}}</td>
+								</tr>
+							{%endif%}
+							{%if value < attentionLim and value >= warningLim%}
+								<tr class = "warning">
+									<td>{{key}}</td>
+									<td>{{value}}</td>
+								</tr>
+							{%else%}
+								<tr>
+									<td>{{key}}</td>
+									<td>{{value}}</td>
+								</tr>
+							{%endif%}
+						{%endfor%}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
