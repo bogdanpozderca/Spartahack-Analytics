@@ -35,3 +35,23 @@ def index(request):
 			colleges[college] = 1
 	context = {"colleges":colleges,"warningLim":15, "attentionLim":30}
 	return render(request, 'Visualization/index.html', context)
+
+# {%for key, value in colleges.items%}
+# 								{%if value >= attentionLim%}
+# 									<tr class="danger">
+# 										<td class = "school">{{key}}</td>
+# 										<td class = "number">{{value}}</td>
+# 									</tr>
+# 								{%endif%}
+# 								{%if value < attentionLim and value >= warningLim%}
+# 									<tr class = "warning">
+# 										<td class = "school">{{key}}</td>
+# 										<td class = "number">{{value}}</td>
+# 									</tr>
+# 								{%else%}
+# 									<tr>
+# 										<td class = "school">{{key}}</td>
+# 										<td class = "number">{{value}}</td>
+# 									</tr>
+# 								{%endif%}
+# 							{%endfor%}

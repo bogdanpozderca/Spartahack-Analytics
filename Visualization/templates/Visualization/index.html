@@ -29,25 +29,6 @@
 							<th onclick="sortBy('number');">Number of People</th>
 						</tr></thead>
 						<tbody id = "data">
-							{%for key, value in colleges.items%}
-								{%if value >= attentionLim%}
-									<tr class="danger">
-										<td class = "school">{{key}}</td>
-										<td class = "number">{{value}}</td>
-									</tr>
-								{%endif%}
-								{%if value < attentionLim and value >= warningLim%}
-									<tr class = "warning">
-										<td class = "school">{{key}}</td>
-										<td class = "number">{{value}}</td>
-									</tr>
-								{%else%}
-									<tr>
-										<td class = "school">{{key}}</td>
-										<td class = "number">{{value}}</td>
-									</tr>
-								{%endif%}
-							{%endfor%}
 						</tbody>
 					</table>
 				</center>
@@ -61,6 +42,14 @@
 				    return a.number - b.number;
 				})
 			}
+			else if(thing = "name"){
+				window.listOfColleges.sort(function(a, b) { 
+				    if(a.school < b.school) return -1;
+				    if(a.school > b.school) return 1;
+				    return 0;
+				})
+				
+			}
 			var strToAdd = "";
 			$(window.listOfColleges).each(function(i,e,a){
 				strToAdd += "<tr><td class = 'school'>"+e.school+"</td><td class = 'number'>"+e.number+"</td></tr>";
@@ -68,6 +57,7 @@
 
 			$("#data").html(strToAdd);
 		}
+		sortBy("name")
 	</script>
 </body>
 </html>
