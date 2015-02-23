@@ -19,7 +19,7 @@ def index(request):
 		college.replace(',',' ')
 		college.replace('-',' ')
 		college.replace(r'[ ]{2,}', ' ')
-		if(college in expansion.keys):
+		if(college in expansion.keys()):
 			college = expansion[college]
 		try:
 			colleges[college] += 1
