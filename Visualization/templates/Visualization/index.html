@@ -18,26 +18,26 @@
 			<center>
 					<table class = "table-striped">
 						<thead><tr>
-							<th>School Name</th>
-							<th>Number of People</th>
+							<th onclick="sortBy('name');">School Name</th>
+							<th onclick="sortBy('number');">Number of People</th>
 						</tr></thead>
-						<tbody>
+						<tbody id = "data">
 							{%for key, value in colleges.items%}
 								{%if value >= attentionLim%}
 									<tr class="danger">
-										<td>{{key}}</td>
-										<td>{{value}}</td>
+										<td class = "school">{{key}}</td>
+										<td class = "number">{{value}}</td>
 									</tr>
 								{%endif%}
 								{%if value < attentionLim and value >= warningLim%}
 									<tr class = "warning">
-										<td>{{key}}</td>
-										<td>{{value}}</td>
+										<td class = "school">{{key}}</td>
+										<td class = "number">{{value}}</td>
 									</tr>
 								{%else%}
 									<tr>
-										<td>{{key}}</td>
-										<td>{{value}}</td>
+										<td class = "school">{{key}}</td>
+										<td class = "number">{{value}}</td>
 									</tr>
 								{%endif%}
 							{%endfor%}
@@ -47,6 +47,11 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function sortBy(thing){
+			console.log(thing);
+		}
+	</script>
 </body>
 </html>
 
