@@ -12,11 +12,18 @@ def index(request):
 		jsonResults += str(i)
 	jsonResults = json.loads(jsonResults)
 	keys = {"college":"textfield_4613313"}
+	expansion = {"msu":'michigan state university', 'um': 'university of michigan', "umich":'university of michigan', 'university of michigan ann arbor': 'university of michigan'}
 	colleges = {}
 	for i in jsonResults["responses"]:
+		college = i["answers"][keys["college"]].lower()
+		college.replace(',',' ')
+		college.replace('-',' ')
+		college.replace(r'[ ]{2,}', ' ')
+		if(expansion[college]):
+			college = expansion[college]
 		try:
-			colleges[i["answers"][keys["college"]]] += 1
+			colleges[college] += 1
 		except KeyError:
-			colleges[i["answers"][keys["college"]]] = 1
+			colleges[college] = 1
 	context = {"colleges":colleges,"warningLim":15, "attentionLim":30}
 	return render(request, 'Visualization/index.html', context)
