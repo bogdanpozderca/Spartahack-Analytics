@@ -15,7 +15,7 @@ def index(request):
 	expansion = {"msu":'michigan state university', 'um': 'university of michigan', "umich":'university of michigan', 'university of michigan ann arbor': 'university of michigan'}
 	colleges = {}
 	for i in jsonResults["responses"]:
-		college = i["answers"][keys["college"]].lower()
+		college = str(i["answers"][keys["college"]]).lower()
 		college.replace(',',' ')
 		college.replace('-',' ')
 		college.replace(r'[ ]{2,}', ' ')
