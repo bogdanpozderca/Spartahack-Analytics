@@ -12,12 +12,20 @@ def index(request):
 		jsonResults += str(i)
 	jsonResults = json.loads(jsonResults)
 	keys = {"college":"textfield_4613313"}
-	expansion = {"msu":'michigan state university', 'um': 'university of michigan', "umich":'university of michigan', 'university of michigan ann arbor': 'university of michigan'}
+
+	expansion = {
+		u"msu":u'michigan state university', 
+		u'um': u'university of michigan', 
+		u"umich":u'university of michigan', 
+		u'university of michigan ann arbor': u'university of michigan'
+	}
+
 	colleges = {}
 	for i in jsonResults["responses"]:
-		college = str(i["answers"][keys["college"]]).lower()
+		college = i["answers"][keys["college"]].lower()
 		college.replace(',',' ')
 		college.replace('-',' ')
+		college.replace(' - ',' ')
 		college.replace(r'[ ]{2,}', ' ')
 		if(college in expansion.keys()):
 			college = expansion[college]
