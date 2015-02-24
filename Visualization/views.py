@@ -14,6 +14,7 @@ def index(request):
 	jsonResults = json.loads(jsonResults)
 	keys = {"college":"textfield_4613313"}
 
+	colleges = {}
 	total = 0
 	for i in jsonResults["responses"]:
 		college = i["answers"][keys["college"]].lower()
