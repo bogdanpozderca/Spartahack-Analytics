@@ -12,8 +12,12 @@ def index(request):
 	for i in urlopen(typeFormURL):
 		jsonResults += str(i)
 	jsonResults = json.loads(jsonResults)
-	keys = {"college":"textfield_4613313",
-			'birthMonth':'number_4613245'}
+	keys = {
+			"college":"textfield_4613313",
+			'birthDay':'number_4613259',
+			'birthMonth':'number_4613245',
+			'birthYear':'number_4613260'
+			}
 
 
 	# college totals
@@ -21,11 +25,40 @@ def index(request):
 
 	#birth month
 	months = {'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0}
+	
+	#distribution by age
+	years = []
+
+	
+	youngest = [0,0,0]
+	oldest = [12,31,9999]
 
 	total = 0
 	for i in jsonResults["responses"]:
 		total += 1
+
+		#for distribution by birth month
 		months[i["answers"][keys["birthMonth"]]] += 1;
+
+
+		#find oldest and youngest
+		if int(i["answers"][keys["birthYear"]]) < 100:
+			i["answers"][keys["birthYear"]] = '19' + i["answers"][keys["birthYear"]];
+
+		if int(i["answers"][keys["birthYear"]]) <= oldest[2]:
+			oldest[2] = int(i["answers"][keys["birthYear"]])
+			if int(i["answers"][keys["birthMonth"]]) <= oldest[1]:
+				oldest[1] = int(i["answers"][keys["birthMonth"]])
+				if int(i["answers"][keys["birthDay"]]) <= oldest[0]:
+					oldest[0] = int(i["answers"][keys["birthDay"]])
+		
+		if int(i["answers"][keys["birthYear"]]) >= youngest[2]:
+			youngest[2] = int(i["answers"][keys["birthYear"]])
+			if int(i["answers"][keys["birthMonth"]]) >= youngest[1]:
+				youngest[1] = int(i["answers"][keys["birthMonth"]])
+				if int(i["answers"][keys["birthDay"]]) >= youngest[0]:
+					youngest[0] = int(i["answers"][keys["birthDay"]])
+
 		college = i["answers"][keys["college"]].lower()
 		college = college.replace(', ',' ')
 		college = college.replace(' - ',' ')
@@ -54,6 +87,8 @@ def index(request):
 		except KeyError:
 			colleges[college] = 1
 
-	context = {"colleges":colleges, "total": total, "months": months}
+	oldest = json.dumps(oldest)
+	youngest = json.dumps(youngest)
+	context = {"colleges":colleges, "total": total, "months": months, 'oldest':oldest, 'youngest': youngest}
 	return render(request, 'Visualization/index.html', context)
 
