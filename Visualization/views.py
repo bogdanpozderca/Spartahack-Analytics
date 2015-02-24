@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 from urllib import urlopen
 import json
+import sys
 
 # Create your views here.
 
@@ -13,45 +14,34 @@ def index(request):
 	jsonResults = json.loads(jsonResults)
 	keys = {"college":"textfield_4613313"}
 
-	expansion = {
-		u"msu":u'michigan state university', 
-		u'um': u'university of michigan', 
-		u"umich":u'university of michigan', 
-		u'university of michigan ann arbor': u'university of michigan'
-	}
-
 	colleges = {}
 	for i in jsonResults["responses"]:
 		college = i["answers"][keys["college"]].lower()
-		college.replace(',',' ')
-		college.replace('-',' ')
-		college.replace(' - ',' ')
-		college.replace(r'[ ]{2,}', ' ')
-		if(college in expansion.keys()):
-			college = expansion[college]
+		college = college.replace(', ',' ')
+		college = college.replace(' - ',' ')
+		college = college.replace('-',' ')
+		college = college.replace(' at ',' ')
+		college = college.replace('  ',' ')
+
+		college = college.replace('high school','highschool')
+		college = college.replace('high schooler','highschool')
+		college = college.replace('highschooler','highschool')
+		if 'highschool' in college:
+			college = 'highschool'
+		college = college.replace('havard','harvard university')	#one off fix
+		college = college.replace('technolog','technology')			#one off fix
+		college = college.replace('technologyy','technology')		#one off fix
+		college = college.replace('the ohio','ohio')				#fuck that
+		college = college.replace('the ','')						#additional fuck that
+		college = college.replace('msu','michigan state university')
+		college = college.replace('um\n','university of michigan')
+		college = college.replace('umich','university of michigan')
+		college = college.replace('university of michigan ann arbor','university of michigan')
+		college = college.replace(' ann arbor','')
+		college = college.rstrip().strip()
 		try:
 			colleges[college] += 1
 		except KeyError:
 			colleges[college] = 1
-	context = {"colleges":colleges,"warningLim":15, "attentionLim":30}
+	context = {"colleges":colleges}
 	return render(request, 'Visualization/index.html', context)
-
-# {%for key, value in colleges.items%}
-# 								{%if value >= attentionLim%}
-# 									<tr class="danger">
-# 										<td class = "school">{{key}}</td>
-# 										<td class = "number">{{value}}</td>
-# 									</tr>
-# 								{%endif%}
-# 								{%if value < attentionLim and value >= warningLim%}
-# 									<tr class = "warning">
-# 										<td class = "school">{{key}}</td>
-# 										<td class = "number">{{value}}</td>
-# 									</tr>
-# 								{%else%}
-# 									<tr>
-# 										<td class = "school">{{key}}</td>
-# 										<td class = "number">{{value}}</td>
-# 									</tr>
-# 								{%endif%}
-# 							{%endfor%}
