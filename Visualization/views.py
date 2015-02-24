@@ -29,7 +29,6 @@ def index(request):
 	#distribution by age
 	years = []
 
-	
 	youngest = [0,0,0]
 	oldest = [12,31,9999]
 
@@ -44,6 +43,8 @@ def index(request):
 		#find oldest and youngest
 		if int(i["answers"][keys["birthYear"]]) < 100:
 			i["answers"][keys["birthYear"]] = '19' + i["answers"][keys["birthYear"]];
+
+		years.append(int(i["answers"][keys["birthYear"]]))
 
 		if int(i["answers"][keys["birthYear"]]) <= oldest[2]:
 			oldest[2] = int(i["answers"][keys["birthYear"]])
@@ -89,6 +90,7 @@ def index(request):
 
 	oldest = json.dumps(oldest)
 	youngest = json.dumps(youngest)
-	context = {"colleges":colleges, "total": total, "months": months, 'oldest':oldest, 'youngest': youngest}
+	years = json.dumps(years)
+	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest}
 	return render(request, 'Visualization/index.html', context)
 

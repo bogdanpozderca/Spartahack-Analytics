@@ -40,6 +40,10 @@
 				<div id="old"></div>
 				<div id="young"></div>
 			</div>
+			<div style="display:inline-block; vertical-align:middle;">
+				<h4 style="color: black; padding-top: 8px;">Distribution by Age</h4>
+				<canvas id="ageChart" height='300px' width='500px'></canvas>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -86,7 +90,7 @@
 
 
 
-		// chartjs bar graph for birth months
+		// chartjs bar graph for birth months --------------------------------------
 		var data = {
 		    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 		    datasets: [
@@ -104,12 +108,56 @@
 		var myBarChart = new Chart(ctx).Bar(data);
 
 
-		//format oldest and youngest
+		//format oldest and youngest -----------------------------------------------
 		oldest = {{oldest}}
 		youngest = {{youngest}}
 
 		$('#old').html('The oldest attendee was born on '+oldest[0]+'/'+oldest[1]+'/'+oldest[2]);
 		$('#young').html('The youngest attendee was born on '+youngest[0]+'/'+youngest[1]+'/'+youngest[2]);
+
+
+		//#distribution by age -----------------------------------------------------
+		years = {{years}}
+		years.sort(function(a, b) { 
+			return b - a;
+		})
+
+		yearsObj = {}
+		//counts all the years
+		for(i=0;i<years.length;i++){
+			if(!yearsObj[years[i]]){
+				yearsObj[years[i]] = 1;
+			} else {
+				yearsObj[years[i]]++;
+			}
+		}
+
+		yearsArray = Object.keys(yearsObj);
+		CurrentYear = new Date().getFullYear();
+		ageArray = [];
+		countArray = [];
+		for(i=0;i<yearsArray.length;i++){
+			ageArray.push(CurrentYear - yearsArray[i]);
+			countArray.push(yearsObj[yearsArray[i]]);
+		}
+
+		var data2 = {
+		    labels: ageArray,
+		    datasets: [
+		        {
+		            label: "Distribution by Age",
+		            fillColor: "rgba(151,187,205,0.5)",
+		            strokeColor: "rgba(151,187,205,0.8)",
+		            highlightFill: "rgba(151,187,205,0.75)",
+		            highlightStroke: "rgba(151,187,205,1)",
+		            data: countArray
+		        }
+		    ]
+		};
+		var ctx = document.getElementById("ageChart").getContext("2d");
+		var myBarChart2 = new Chart(ctx).Bar(data2);
+
+
 
 		$(document).ready(function(){
 			sortBy('name');
