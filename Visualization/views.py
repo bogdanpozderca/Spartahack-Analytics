@@ -12,12 +12,20 @@ def index(request):
 	for i in urlopen(typeFormURL):
 		jsonResults += str(i)
 	jsonResults = json.loads(jsonResults)
-	keys = {"college":"textfield_4613313"}
+	keys = {"college":"textfield_4613313",
+			'birthMonth':'number_4613245'}
 
+
+	# college totals
 	colleges = {}
+
+	#birth month
+	months = {'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0}
+
 	total = 0
 	for i in jsonResults["responses"]:
 		total += 1
+		months[i["answers"][keys["birthMonth"]]] += 1;
 		college = i["answers"][keys["college"]].lower()
 		college = college.replace(', ',' ')
 		college = college.replace(' - ',' ')
@@ -45,6 +53,7 @@ def index(request):
 			colleges[college] += 1
 		except KeyError:
 			colleges[college] = 1
-	context = {"colleges":colleges, "total": total}
+
+	context = {"colleges":colleges, "total": total, "months": months}
 	return render(request, 'Visualization/index.html', context)
 
