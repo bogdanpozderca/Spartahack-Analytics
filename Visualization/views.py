@@ -14,7 +14,7 @@ def index(request):
 	jsonResults = json.loads(jsonResults)
 	keys = {"college":"textfield_4613313"}
 
-	colleges = {}
+	total = 0
 	for i in jsonResults["responses"]:
 		college = i["answers"][keys["college"]].lower()
 		college = college.replace(', ',' ')
@@ -41,7 +41,9 @@ def index(request):
 		college = college.rstrip().strip()
 		try:
 			colleges[college] += 1
+			total += 1
 		except KeyError:
 			colleges[college] = 1
-	context = {"colleges":colleges}
+	context = {"colleges":colleges, "total": total}
 	return render(request, 'Visualization/index.html', context)
+

@@ -36,6 +36,8 @@
 			{%endfor%}
 		];
 
+		total = {{total}};
+
 		function sortBy(thing){
 			if(thing == "number"){
 				window.listOfColleges.sort(function(a, b) { 
@@ -56,7 +58,7 @@
 					strToAdd += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number'>"+e.number+"</td></tr>";
 				}
 			});
-
+			strToAdd += "<tr><td class = 'school' style='padding-right:15px'>Total</td><td class = 'number'>"+total+"</td></tr>"
 			$("#data").html(strToAdd);
 
 		}
