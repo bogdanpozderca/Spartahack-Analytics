@@ -15,20 +15,29 @@
 	<div class = "container-fluid">
 		<div class = "row">
 			<div class = " col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<center><h1>Better Than the Default TypeForm Report</h1></center>
+				<center><h1>Applicants per University</h1></center>
 			</div>
 		</div>
 		<div class = "row">
 			<div class = " col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<center>
-					<table class = "table-striped">
+					<table class = "table-striped" style="display:inline-block; padding-right: 20px;">
 						<thead>
 							<tr>
-								<th onclick="sortBy('name');" >School Name</th>
-								<th onclick="sortBy('number');">Number of People</th>
+								<th onclick="sortBy('name');" >University</th>
+								<th onclick="sortBy('number');">Applicants</th>
 							</tr>
 						</thead>
 						<tbody id = "data"></tbody>
+					</table>
+					<table class = "table-striped" style="display:inline-block">
+						<thead>
+							<tr>
+								<th onclick="sortBy('name');" >University</th>
+								<th onclick="sortBy('number');">Applicants</th>
+							</tr>
+						</thead>
+						<tbody id = "data2"></tbody>
 					</table>
 				</center>
 			</div>
@@ -48,9 +57,12 @@
 				<canvas id="ageChart" height='300px' width='500px'></canvas>
 			</div>
 		</div>
+		
+		<div width='100%' style="text-align:center; padding-top: 20px;">
+			<h4 id="applyChart" style="position:absolute; left:20%; height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
+			<!-- <div id="genderBar" style="height: 300px; width: 60%; text-align:center;">Hourly Gender Distribution<svg></svg></div> -->
+		</div>
 
-		<h4 id="applyChart" style="height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
-		<!-- <div id="genderBar" style="height: 300px; width: 60%; text-align:center;">Hourly Gender Distribution<svg></svg></div> -->
 	</div>
 	<script type="text/javascript">
 		window.listOfColleges = [
@@ -73,15 +85,30 @@
 				})
 			}
 			var strToAdd = "";
+			var strToAdd2 ="";
+			var rowCount = 0;
+			var totalUni = window.listOfColleges.length/2;
 			$(window.listOfColleges).each(function(i,e,a){
+				console.log(rowCount);
 				if(parseInt(e.number) >14){
-					strToAdd += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number'><strong>"+e.number+"</strong></td></tr>";
+					if (rowCount > parseInt(totalUni)){
+						strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number' style='text-align:right;'><strong>"+e.number+"</strong></td></tr>";
+					} else {
+						strToAdd += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number' style='text-align:right;'><strong>"+e.number+"</strong></td></tr>";
+					}
+					rowCount++;
 				} else {
-					strToAdd += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number'>"+e.number+"</td></tr>";
+					if (rowCount > parseInt(totalUni)){
+						strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number' style='text-align:right;'>"+e.number+"</td></tr>";
+					} else {
+						strToAdd += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number' style='text-align:right;'>"+e.number+"</td></tr>";
+					}
+					rowCount++;
 				}
 			});
-			strToAdd += "<tr><td class = 'school' style='padding-right:15px'><strong>Total</strong></td><td class = 'number'><strong>"+total+"</strong></td></tr>"
+			strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'><strong>Total</strong></td><td class = 'number' style='text-align:right;'><strong>"+total+"</strong></td></tr>"
 			$("#data").html(strToAdd);
+			$("#data2").html(strToAdd2);
 
 		}
 
