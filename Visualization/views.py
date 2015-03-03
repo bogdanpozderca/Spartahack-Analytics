@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, Http404, JsonResponse
 from urllib import urlopen
 import json
-import sys
 
 # Create your views here.
 
@@ -16,7 +15,8 @@ def index(request):
 			"college":"textfield_4613313",
 			'birthDay':'number_4613259',
 			'birthMonth':'number_4613245',
-			'birthYear':'number_4613260'
+			'birthYear':'number_4613260',
+			'gender': 'list_4613175_choice'
 			}
 
 
@@ -31,6 +31,9 @@ def index(request):
 
 	youngest = [0,0,0]
 	oldest = [12,31,9999]
+
+	#rate of applications
+	dayCounts = {};
 
 	total = 0
 	for i in jsonResults["responses"]:
@@ -72,15 +75,18 @@ def index(request):
 		college = college.replace('highschooler','highschool')
 		if 'highschool' in college:
 			college = 'highschool'
-		college = college.replace('havard','harvard university')	#one off fix
-		college = college.replace('technolog','technology')			#one off fix
-		college = college.replace('technologyy','technology')		#one off fix
-		college = college.replace('the ohio','ohio')				#fuck that
-		college = college.replace('the ','')						#additional fuck that
+		college = college.replace('havard','harvard university')		#one off fix
+		college = college.replace('technolog','technology')				#one off fix
+		college = college.replace('technologyy','technology')			#one off fix
+		college = college.replace('technologyical','technological')		#one off fix
+		college = college.replace('the ohio','ohio')					#fuck that
+		college = college.replace('the ','')							#additional fuck that
+		college = college.replace('michigan state','michigan state university')
 		college = college.replace('msu','michigan state university')
 		college = college.replace('um\n','university of michigan')
 		college = college.replace('umich','university of michigan')
 		college = college.replace('university of michigan ann arbor','university of michigan')
+		college = college.replace('university university','university')
 		college = college.replace(' ann arbor','')
 		college = college.rstrip().strip()
 		try:
@@ -88,9 +94,37 @@ def index(request):
 		except KeyError:
 			colleges[college] = 1
 
+		dateTime = i['metadata']['date_submit'].split()
+		date = dateTime[0]
+		timeList = dateTime[1].split(':')
+		hour = timeList[0]
+		gender = i["answers"][keys["gender"]];
+
+		if date in dayCounts.keys():
+			dayCounts[date][hour][0] +=1
+			if gender == 'Male':
+				dayCounts[date][hour][1] +=1
+			elif gender == 'Female':
+				dayCounts[date][hour][2] +=1
+			else:
+				dayCounts[date][hour][3] +=1
+		else: 
+			dayCounts[date]={'00':[0,0,0,0], '01':[0,0,0,0], '02':[0,0,0,0], '03':[0,0,0,0], '04':[0,0,0,0], 
+							'05':[0,0,0,0], '06':[0,0,0,0], '07':[0,0,0,0], '08':[0,0,0,0], '09':[0,0,0,0], 
+							'10':[0,0,0,0], '11':[0,0,0,0], '12':[0,0,0,0], '13':[0,0,0,0], '14':[0,0,0,0],
+							'15':[0,0,0,0], '16':[0,0,0,0], '17':[0,0,0,0], '18':[0,0,0,0], '19':[0,0,0,0], 
+							'20':[0,0,0,0], '21':[0,0,0,0], '22':[0,0,0,0], '23':[0,0,0,0]}
+			dayCounts[date][hour][0] += 1
+			if gender == 'male':
+				dayCounts[date][hour][1] +=1
+			elif gender == 'female':
+				dayCounts[date][hour][2] +=1
+			else:
+				dayCounts[date][hour][3] +=1
+
 	oldest = json.dumps(oldest)
 	youngest = json.dumps(youngest)
 	years = json.dumps(years)
-	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest}
+	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest, 'dayCounts': json.dumps(dayCounts)}
 	return render(request, 'Visualization/index.html', context)
 

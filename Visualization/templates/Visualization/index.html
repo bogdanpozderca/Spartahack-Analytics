@@ -5,7 +5,10 @@
 	<title>SpartaHack Data Visualization</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
+    <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
 	<script src="{{ STATIC_URL }}js/Chart.js" type="text/javascript"></script>
 </head>
 <body>
@@ -45,6 +48,9 @@
 				<canvas id="ageChart" height='300px' width='500px'></canvas>
 			</div>
 		</div>
+
+		<h4 id="applyChart" style="height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
+		<!-- <div id="genderBar" style="height: 300px; width: 60%; text-align:center;">Hourly Gender Distribution<svg></svg></div> -->
 	</div>
 	<script type="text/javascript">
 		window.listOfColleges = [
@@ -158,9 +164,89 @@
 		var myBarChart2 = new Chart(ctx).Bar(data2);
 
 
+		//#rate of applications -----------------------------------------------------
+		var colors = d3.scale.category20();
+		var keyColor = function(d, i) {return colors(d.key)};
+
+		function chartConfig(container, data, useGuideline) {
+		  	if (useGuideline === undefined) useGuideline = true;
+				nv.addGraph(function() {
+				    var chart;
+				    chart = nv.models.stackedAreaChart()
+				                  .useInteractiveGuideline(true)
+				                  .x(function(d) { return d[0] })
+				                  .y(function(d) { return d[1] })
+				                  .color(keyColor);
+
+				    chart.xAxis
+				        .tickFormat(function(d) { return d3.time.format('%a %d')(new Date(d)) });
+
+				    chart.yAxis
+				        .tickFormat(d3.format('.2g'));
+
+				    d3.select('#' + container + ' svg')
+				          .datum(data)
+				        .transition().duration(500).call(chart);
+
+				    nv.utils.windowResize(chart.update);
+
+				    return chart;
+			});
+		}
+
+		function stackedBarConfig(container, data){
+			nv.addGraph(function() {
+			    var chart = nv.models.multiBarChart();
+
+			    chart.xAxis
+			        .tickFormat(d3.format(',f'));
+
+			    chart.yAxis
+			        .tickFormat(d3.format(',.1f'));
+
+			    d3.select('#' + container + ' svg')
+			        .datum(data)
+			        .transition().duration(500)
+			        .call(chart)
+			        ;
+
+			    nv.utils.windowResize(chart.update);
+
+			    return chart;
+			});
+		}
+
+		//formating of data from server for chart and bargraph
+		dayCounts = {{dayCounts|safe}}
+		d3GraphObj =[{"key" : "Male" , "values" : []},{"key" : "Female" , "values" : []}, {"key" : "Non-binary" , "values" : []}]
+		d3BarObj = []
+		$.each(dayCounts, function(index, value) {              //index:day value:hour obj
+			$.each(value, function(index2, value2) {			//index2:hour value2: count
+				dateTime = index+'T'+index2+':00:00';
+				dateUTC = Date.parse(new Date(dateTime));
+				d3BarObj.push({'Time': dateUTC, 'Male':value2[1], 'Female':value2[2], 'Non-binary': value2[3]});
+				d3GraphObj[0]["values"].push([dateUTC,value2[1]]);
+				d3GraphObj[1]["values"].push([dateUTC,value2[2]]);
+				d3GraphObj[2]["values"].push([dateUTC,value2[3]]);
+			}); 
+		}); 
+
+		for(i=0;i<d3GraphObj.length;i++){
+			d3GraphObj[i]['values'].sort(function(a, b) { 
+				return a[0] - b[0];
+			})
+		}
+
+		d3BarObj.sort(function(a, b) { 
+			return a['Time'] - b['Time'];
+		})
+		console.log(d3BarObj);
+
+		chartConfig("applyChart", d3GraphObj); 
+		//chartConfig("genderBar", d3BarObj); 
 
 		$(document).ready(function(){
-			sortBy('name');
+			sortBy('number');
 		}); 
 	</script>
 </body>
