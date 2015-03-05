@@ -4,22 +4,78 @@ from urllib import urlopen
 import json
 
 # Create your views here.
+typeFormURL = "https://api.typeform.com/v0/form/Zh7TEH?key=1b508a88a1331cf2c182cb136f6da1ebd880a299&completed=true"
+jsonResults = ""
+for i in urlopen(typeFormURL):
+	jsonResults += str(i)
+jsonResults = json.loads(jsonResults)
+keys = {
+	"Name": "textfield_4613064",
+	"Email": "email_4613164",
+	"Phone Number": "textfield_4613168",
+	"Gender identity": "list_4613175_choice",
+	"Month" : "number_4613245",
+	"Day": "number_4613259",
+	"Year": "number_4613260", 
+	"T-Shirt size": "list_4613276_choice",
+	"Where are you traveling from?": "textfield_4613285", 
+	"What university do you currently attend?": "textfield_4613313", 
+	"What is your major of study?": "textfield_4613318", 
+	"Year in school": "list_4613345_choice", 
+	"GitHub": "website_4613414",
+	"LinkedIn": "website_4613464",
+	"Personal Website": "website_4613469", 
+	"Another cool link?": "website_4613471", 
+	"Will this be your first hackathon?": "yesno_4613474", 
+	"If no  what other hackathons have you attended?": "textarea_4613558", 
+	"Are you willing to mentor?": "yesno_4613478", 
+	"Technologies you're comfortable with": "list_4613658_choice_5343749",
+	"Technologies you're comfortable with 1": "list_4613658_choice_5343750", 
+	"Technologies you're comfortable with 2": "list_4613658_choice_5343751", 
+	"Technologies you're comfortable with 3": "list_4613658_choice_5343752", 
+	"Technologies you're comfortable with 4": "list_4613658_choice_5343753", 
+	"Technologies you're comfortable with 5": "list_4613658_choice_5343754", 
+	"Technologies you're comfortable with 6": "list_4613658_choice_5343755", 
+	"Technologies you're comfortable with 7": "list_4613658_choice_5343756", 
+	"Technologies you're comfortable with 8": "list_4613658_choice_5343757", 
+	"Technologies you're comfortable with 9": "list_4613658_choice_5343758", 
+	"Technologies you're comfortable with 10": "list_4613658_choice_5343759", 
+	"Technologies you're comfortable with 11": "list_4613658_choice_5343760", 
+	"Technologies you're comfortable with 12": "list_4613658_choice_5343761", 
+	"Technologies you're comfortable with 13": "list_4613658_choice_5343762", 
+	"Technologies you're comfortable with 14": "list_4613658_choice_5343763", 
+	"Technologies you're comfortable with 15": "list_4613658_choice_5343764",
+	"Technologies you're comfortable with 16": "list_4613658_choice_5343765", 
+	"Technologies you're comfortable with 17": "list_4613658_choice_5343766", 
+	"Technologies you're comfortable with 18": "list_4613658_choice_5343767", 
+	"Technologies you're comfortable with 19": "list_4613658_choice_5343768", 
+	"Technologies you're comfortable with 20": "list_4613658_choice_5343769", 
+	"Technologies you're comfortable with 21": "list_4613658_choice_5343770", 
+	"Technologies you're comfortable with 22": "list_4613658_choice_5343771", 
+	"Technologies you're comfortable with 23": "list_4613658_choice_5343772", 
+	"Technologies you're comfortable with 24": "list_4613658_choice_5343773", 
+	"Technologies you're comfortable with 25": "list_4613658_choice_5343774", 
+	"Is there any hardware you'd like to hack on?": "list_4613747_choice_5343880",
+	"Is there any hardware you'd like to hack on? 1": "list_4613747_choice_5343881", 
+	"Is there any hardware you'd like to hack on? 2": "list_4613747_choice_5343882",
+	"Is there any hardware you'd like to hack on? 3": "list_4613747_choice_5343883", 
+	"Is there any hardware you'd like to hack on? 4": "list_4613747_choice_5343884", 
+	"Is there any hardware you'd like to hack on? 5": "list_4613747_choice_5343885", 
+	"Is there any hardware you'd like to hack on? 6": "list_4613747_choice_5343886", 
+	"Is there any hardware you'd like to hack on? 7": "list_4613747_choice_5343887", 
+	"Is there any hardware you'd like to hack on? 8": "list_4613747_choice_5343888", 
+	"Is there any other hardware you'd like to see at SpartaHack": "textarea_4613781", 
+	"Link and/or description of your favorite project": "textarea_4613788", 
+	"Do you need travel reimbursement to attend?": "yesno_4613836", 
+	"Do you have an dietary restrictions we should be prepared to accommodate?": "textarea_4613853", 
+	"Will you require any special accommodations?": "textarea_4613879", 
+	"Please list the emails of any teammates you are applying with": "textarea_4613955"
+}
+
+
+
 
 def index(request):
-	typeFormURL = "https://api.typeform.com/v0/form/Zh7TEH?key=1b508a88a1331cf2c182cb136f6da1ebd880a299&completed=true"
-	jsonResults = ""
-	for i in urlopen(typeFormURL):
-		jsonResults += str(i)
-	jsonResults = json.loads(jsonResults)
-	keys = {
-			"college":"textfield_4613313",
-			'birthDay':'number_4613259',
-			'birthMonth':'number_4613245',
-			'birthYear':'number_4613260',
-			'gender': 'list_4613175_choice'
-			}
-
-
 	# college totals
 	colleges = {}
 
@@ -40,30 +96,30 @@ def index(request):
 		total += 1
 
 		#for distribution by birth month
-		months[i["answers"][keys["birthMonth"]]] += 1;
+		months[i["answers"][keys["Month"]]] += 1;
 
 
 		#find oldest and youngest
-		if int(i["answers"][keys["birthYear"]]) < 100:
-			i["answers"][keys["birthYear"]] = '19' + i["answers"][keys["birthYear"]];
+		if int(i["answers"][keys["Year"]]) < 100:
+			i["answers"][keys["Year"]] = '19' + i["answers"][keys["Year"]];
 
-		years.append(int(i["answers"][keys["birthYear"]]))
+		years.append(int(i["answers"][keys["Year"]]))
 
-		if int(i["answers"][keys["birthYear"]]) <= oldest[2]:
-			oldest[2] = int(i["answers"][keys["birthYear"]])
-			if int(i["answers"][keys["birthMonth"]]) <= oldest[1]:
-				oldest[1] = int(i["answers"][keys["birthMonth"]])
-				if int(i["answers"][keys["birthDay"]]) <= oldest[0]:
-					oldest[0] = int(i["answers"][keys["birthDay"]])
+		if int(i["answers"][keys["Year"]]) <= oldest[2]:
+			oldest[2] = int(i["answers"][keys["Year"]])
+			if int(i["answers"][keys["Month"]]) <= oldest[1]:
+				oldest[1] = int(i["answers"][keys["Month"]])
+				if int(i["answers"][keys["Day"]]) <= oldest[0]:
+					oldest[0] = int(i["answers"][keys["Day"]])
 		
-		if int(i["answers"][keys["birthYear"]]) >= youngest[2]:
-			youngest[2] = int(i["answers"][keys["birthYear"]])
-			if int(i["answers"][keys["birthMonth"]]) >= youngest[1]:
-				youngest[1] = int(i["answers"][keys["birthMonth"]])
-				if int(i["answers"][keys["birthDay"]]) >= youngest[0]:
-					youngest[0] = int(i["answers"][keys["birthDay"]])
+		if int(i["answers"][keys["Year"]]) >= youngest[2]:
+			youngest[2] = int(i["answers"][keys["Year"]])
+			if int(i["answers"][keys["Month"]]) >= youngest[1]:
+				youngest[1] = int(i["answers"][keys["Month"]])
+				if int(i["answers"][keys["Day"]]) >= youngest[0]:
+					youngest[0] = int(i["answers"][keys["Day"]])
 
-		college = i["answers"][keys["college"]].lower()
+		college = i["answers"][keys["What university do you currently attend?"]].lower()
 		college = college.replace(', ',' ')
 		college = college.replace(' - ',' ')
 		college = college.replace('-',' ')
@@ -76,6 +132,7 @@ def index(request):
 		college = college.replace('highschooler','highschool')
 		college = college.replace('international academy east (hs)','highschool') 
 		college = college.replace('still in hs','highschool')
+		college = college.replace('still hs','highschool')
 		if 'highschool' in college:
 			college = 'highschool'
 		college = college.replace('na\n','Not Applicable')
@@ -108,7 +165,7 @@ def index(request):
 		date = dateTime[0]
 		timeList = dateTime[1].split(':')
 		hour = timeList[0]
-		gender = i["answers"][keys["gender"]];
+		gender = i["answers"][keys["Gender identity"]];
 
 		if date in dayCounts.keys():
 			dayCounts[date][hour][0] +=1
@@ -137,4 +194,29 @@ def index(request):
 	years = json.dumps(years)
 	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest, 'dayCounts': json.dumps(dayCounts)}
 	return render(request, 'Visualization/index.html', context)
+
+def table(request):
+	tableResults= []
+	rowModel= {}
+	for question in keys.keys():
+		rowModel[question] = "";
+
+	for i in jsonResults["responses"]:
+		row = rowModel
+		for question in keys.keys():
+			row[question] = i["answers"][keys[question]]
+
+		tableResults.append(row);
+
+
+
+
+	context = {'tableResults': json.dumps(tableResults)}
+	return render(request, 'Visualization/table.html', context)
+
+
+
+
+
+
 
