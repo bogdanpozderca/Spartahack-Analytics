@@ -15,7 +15,6 @@ function sortBy(thing){
 	var rowCount = 0;
 	var totalUni = window.listOfColleges.length/2;
 	$(window.listOfColleges).each(function(i,e,a){
-		console.log(rowCount);
 		if(parseInt(e.number) >14){
 			if (rowCount > parseInt(totalUni)){
 				strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number' style='text-align:right;'><strong>"+e.number+"</strong></td></tr>";
@@ -121,7 +120,7 @@ function chartConfig(container, data, useGuideline) {
 		                  .color(keyColor);
 
 		    chart.xAxis
-		        .tickFormat(function(d) { return d3.time.format('%a %d')(new Date(d)) });
+		        .tickFormat(function(d) { return d3.time.format('%d-%a:%I%p')(new Date(d)) });
 
 		    chart.yAxis
 		        .tickFormat(d3.format('.2g'));
@@ -181,7 +180,11 @@ for(i=0;i<d3GraphObj.length;i++){
 d3BarObj.sort(function(a, b) { 
 	return a['Time'] - b['Time'];
 })
-console.log(d3BarObj);
+
+
+appRate = total/dayCounts.length;
+console.log("Daily Rate of Applicants = " + total/Object.keys(dayCounts).length);
+
 
 chartConfig("applyChart", d3GraphObj); 
 //chartConfig("genderBar", d3BarObj); 

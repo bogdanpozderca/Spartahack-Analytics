@@ -68,19 +68,29 @@ def index(request):
 		college = college.replace(' - ',' ')
 		college = college.replace('-',' ')
 		college = college.replace(' at ',' ')
+		college = college.replace(' in ',' ')
 		college = college.replace('  ',' ')
 
 		college = college.replace('high school','highschool')
 		college = college.replace('high schooler','highschool')
 		college = college.replace('highschooler','highschool')
+		college = college.replace('international academy east (hs)','highschool') 
+		college = college.replace('still in hs','highschool')
 		if 'highschool' in college:
 			college = 'highschool'
+		college = college.replace('na\n','Not Applicable')
+		college = college.replace('rutgers new brunswick','rutgers university')
+		
+		college = college.replace('michigan tech\n','michigan technological university')     #one off fix
+		college = college.replace('michigan technological institute','michigan technological university')    #one off fix
+		college = college.replace('depaul university chicago','depaul university') #one off fix
 		college = college.replace('havard','harvard university')		#one off fix
 		college = college.replace('technolog','technology')				#one off fix
 		college = college.replace('technologyy','technology')			#one off fix
 		college = college.replace('technologyical','technological')		#one off fix
 		college = college.replace('the ohio','ohio')					#fuck that
 		college = college.replace('the ','')							#additional fuck that
+		college = college.replace('u of','university of')
 		college = college.replace('michigan state','michigan state university')
 		college = college.replace('msu','michigan state university')
 		college = college.replace('um\n','university of michigan')
