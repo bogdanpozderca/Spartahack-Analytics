@@ -264,6 +264,66 @@ $(function () {
     });
 });
 
+// chartjs bar graph for sites by year --------------------------------------
+var data = {
+    labels: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+'],
+    datasets: [
+        {
+            label: "GitHub",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [sitesYear[0][0],sitesYear[1][0],sitesYear[2][0],sitesYear[3][0],sitesYear[4][0]]
+        },
+        {
+            label: "LinkedIn",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [sitesYear[0][1],sitesYear[1][1],sitesYear[2][1],sitesYear[3][1],sitesYear[4][1]]
+        },
+        {
+            label: "Personal",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [sitesYear[0][2],sitesYear[1][2],sitesYear[2][2],sitesYear[3][2],sitesYear[4][2]]
+        },
+        {
+            label: "Cool Link",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [sitesYear[0][3],sitesYear[1][3],sitesYear[2][3],sitesYear[3][3],sitesYear[4][3]]
+        }
+    ]
+};
+
+
+var ctx = document.getElementById("sitesYear").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data, {multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
+
+// chartjs bar graph for site totals --------------------------------------
+var data = {
+    labels: ['Github', 'LinkedIn', 'Personal', 'Other'],
+    datasets: [
+        {
+            label: "Totals",
+            fillColor: "rgba(69,69,74,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(92,92,97,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [sites[0],sites[1],sites[2],sites[3]]
+        }
+    ]
+};
+var ctx = document.getElementById("sitesTotal").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data);
+
 
 $(document).ready(function(){
 	sortBy('number');

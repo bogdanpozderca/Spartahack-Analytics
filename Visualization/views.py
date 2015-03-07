@@ -72,10 +72,51 @@ keys = {
 	"Please list the emails of any teammates you are applying with": "textarea_4613955"
 }
 
-
-
-
 def index(request):
+
+	sites = [0,0,0,0];
+	sitesYear = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+
+	def getSites(i,r):
+		#for links given
+		github = i["answers"][keys["GitHub"]]
+		github = github.replace('https://','http://')
+		github = github.replace('http://','')
+		github = github.replace('github.com','www.github.com')
+		github = github.replace('www.github.com/','')
+		if len(github):
+			sites[0] +=1
+			sitesYear[r][0] +=1
+
+		linkedIn = i["answers"][keys["LinkedIn"]]
+		linkedIn = linkedIn.replace('https://','http://')
+		linkedIn = linkedIn.replace('http://','')
+		linkedIn = linkedIn.replace('linkedin.com','www.linkedin.com')
+		linkedIn = linkedIn.replace('www.linkedin.com/in','')
+		linkedIn = linkedIn.replace('www.linkedin.com/ln','')
+		linkedIn = linkedIn.replace('www.linkedin.com/','')
+		
+		if len(linkedIn):
+			sites[1] +=1
+			sitesYear[r][1] +=1
+
+		personal = i["answers"][keys["Personal Website"]]
+		personal = personal.replace('https://','http://')
+		personal = personal.replace('http://','')
+		if len(personal):
+			sites[2] +=1
+			sitesYear[r][2] +=1
+
+		other = i["answers"][keys["Another cool link?"]]
+		other = other.replace('https://','http://')
+		other = other.replace('http://','')
+		if len(other):
+			sites[3] +=1
+			sitesYear[r][3] +=1
+		return
+
+
+
 	# college totals
 	colleges = {}
 
@@ -102,26 +143,32 @@ def index(request):
 		#for year in school
 		if i["answers"][keys["Year in school"]] == 'First Year':
 			yearSchool[0] +=1
+			getSites(i,0)
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[0] +=1
 				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Second Year':
 			yearSchool[1] +=1
+			getSites(i,1)
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[1] +=1
 				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Third Year':
 			yearSchool[2] +=1
+			getSites(i,2)
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[2] +=1
 				firstHack[5] +=1
+
 		elif i["answers"][keys["Year in school"]] == 'Fourth Year':
 			yearSchool[3] +=1
+			getSites(i,3)
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[3] +=1
 				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Fifth+ Year':
 			yearSchool[4] +=1
+			getSites(i,4)
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[4] +=1
 				firstHack[5] +=1
@@ -243,7 +290,8 @@ def index(request):
 	years = json.dumps(years)
 	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 
 		'youngest': youngest, 'dayCounts': json.dumps(dayCounts), 'tshirt': json.dumps(tshirt), 
-		'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack)}
+		'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack),'sites': json.dumps(sites),
+		'sitesYear': json.dumps(sitesYear)}
 	return render(request, 'Visualization/index.html', context)
 
 def table(request):
