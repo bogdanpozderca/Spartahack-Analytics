@@ -229,21 +229,40 @@ var ctx = document.getElementById("tshirt").getContext("2d");
 var myBarChart = new Chart(ctx).Bar(data);
 
 // chartjs bar graph for year in school --------------------------------------
-var data = {
-    labels: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+'],
-    datasets: [
-        {
-            label: "Distribution by T-shirt Size",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(151,187,205,0.75)",
-            highlightStroke: "rgba(151,187,205,1)",
-            data: [yearSchool[0],yearSchool[1],yearSchool[2],yearSchool[3], yearSchool[4]]
-        }
-    ]
-};
-var ctx = document.getElementById("schoolYear").getContext("2d");
-var myBarChart = new Chart(ctx).Bar(data);
+$(function () {
+    $('#schoolYear').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Distribution by Year in School'
+        },
+        xAxis: {
+            categories: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total Applicants by Year'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'First Hackathon',
+            data: [firstHack[0],firstHack[1],firstHack[2],firstHack[3], firstHack[4]]
+        }, {
+            name: 'Not First',
+            data: [yearSchool[0]-firstHack[0],yearSchool[1]-firstHack[1],yearSchool[2]-firstHack[2],yearSchool[3]-firstHack[3],yearSchool[4]-firstHack[4]]
+        }]
+    });
+});
 
 
 $(document).ready(function(){

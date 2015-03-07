@@ -93,6 +93,7 @@ def index(request):
 
 	tshirt = [0,0,0,0]
 	yearSchool = [0,0,0,0,0]
+	firstHack = [0,0,0,0,0,0]
 
 	total = 0
 	for i in jsonResults["responses"]:
@@ -101,14 +102,29 @@ def index(request):
 		#for year in school
 		if i["answers"][keys["Year in school"]] == 'First Year':
 			yearSchool[0] +=1
+			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
+				firstHack[0] +=1
+				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Second Year':
 			yearSchool[1] +=1
+			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
+				firstHack[1] +=1
+				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Third Year':
 			yearSchool[2] +=1
+			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
+				firstHack[2] +=1
+				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Fourth Year':
 			yearSchool[3] +=1
+			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
+				firstHack[3] +=1
+				firstHack[5] +=1
 		elif i["answers"][keys["Year in school"]] == 'Fifth+ Year':
 			yearSchool[4] +=1
+			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
+				firstHack[4] +=1
+				firstHack[5] +=1
 
 		#for tshirt sizes
 		if i["answers"][keys["T-Shirt size"]] == 'S':
@@ -225,7 +241,9 @@ def index(request):
 	oldest = json.dumps(oldest)
 	youngest = json.dumps(youngest)
 	years = json.dumps(years)
-	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest, 'dayCounts': json.dumps(dayCounts), 'tshirt': json.dumps(tshirt), 'yearSchool': json.dumps(yearSchool)}
+	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 
+		'youngest': youngest, 'dayCounts': json.dumps(dayCounts), 'tshirt': json.dumps(tshirt), 
+		'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack)}
 	return render(request, 'Visualization/index.html', context)
 
 def table(request):
