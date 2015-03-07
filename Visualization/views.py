@@ -182,9 +182,9 @@ def index(request):
 							'15':[0,0,0,0], '16':[0,0,0,0], '17':[0,0,0,0], '18':[0,0,0,0], '19':[0,0,0,0], 
 							'20':[0,0,0,0], '21':[0,0,0,0], '22':[0,0,0,0], '23':[0,0,0,0]}
 			dayCounts[date][hour][0] += 1
-			if gender == 'male':
+			if gender == 'Male':
 				dayCounts[date][hour][1] +=1
-			elif gender == 'female':
+			elif gender == 'Female':
 				dayCounts[date][hour][2] +=1
 			else:
 				dayCounts[date][hour][3] +=1
@@ -213,7 +213,6 @@ def table(request):
 
 	context = {'tableResults': json.dumps(tableResults)}
 	return render(request, 'Visualization/table.html', context)
-
 
 
 
