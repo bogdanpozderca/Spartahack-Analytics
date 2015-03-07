@@ -152,6 +152,7 @@ def index(request):
 		college = college.replace('msu','michigan state university')
 		college = college.replace('um\n','university of michigan')
 		college = college.replace('umich','university of michigan')
+		college = college.replace('michigan\n','university of michigan')
 		college = college.replace('university of michigan ann arbor','university of michigan')
 		college = college.replace('university university','university')
 		college = college.replace(' ann arbor','')
