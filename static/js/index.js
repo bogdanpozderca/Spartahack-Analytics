@@ -47,10 +47,10 @@ var data = {
     datasets: [
         {
             label: "Distribution by Birth Month",
-            fillColor: "rgba(166,204,255,1)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(69,69,74,1)",
-            highlightStroke: "rgba(151,187,205,1)",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
             data: [months[0][1], months[1][1], months[2][1], months[3][1], months[4][1], months[5][1], months[6][1], months[7][1], months[8][1], months[9][1], months[10][1], months[11][1]]
         }
     ]
@@ -94,9 +94,9 @@ var data2 = {
         {
             label: "Distribution by Age",
             fillColor: "rgba(69,69,74,1)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(166,204,255,1)",
-            highlightStroke: "rgba(151,187,205,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(92,92,97,1)",
+            highlightStroke: "rgba(151,187,205,0)",
             data: countArray.reverse()
         }
     ]
@@ -201,9 +201,9 @@ var data = {
         {
             label: "Distribution by Gender",
             fillColor: "rgba(69,69,74,1)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(166,204,255,1)",
-            highlightStroke: "rgba(151,187,205,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(92,92,97,1)",
+            highlightStroke: "rgba(151,187,205,0)",
             data: [maleTotal,femaleTotal,elseTotal]
         }
     ]
@@ -217,10 +217,10 @@ var data = {
     datasets: [
         {
             label: "Distribution by T-shirt Size",
-            fillColor: "rgba(166,204,255,1)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(69,69,74,1)",
-            highlightStroke: "rgba(151,187,205,1)",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
             data: [tshirt[0],tshirt[1],tshirt[2],tshirt[3]]
         }
     ]
