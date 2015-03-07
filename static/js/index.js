@@ -272,40 +272,44 @@ var data = {
             label: "GitHub",
             fillColor: "rgba(115,169,220,1)",
             strokeColor: "rgba(151,187,205,0)",
-            highlightFill: "rgba(166,204,255,1)",
+            highlightFill: "rgba(115,169,220,0.8)",
             highlightStroke: "rgba(151,187,205,0)",
-            data: [sitesYear[0][0],sitesYear[1][0],sitesYear[2][0],sitesYear[3][0],sitesYear[4][0]]
+            data: [(sitesYear[0][0]/yearSchool[0]*100).toFixed(2),(sitesYear[1][0]/yearSchool[1]*100).toFixed(2),
+            	(sitesYear[2][0]/yearSchool[2]*100).toFixed(2),(sitesYear[3][0]/yearSchool[3]*100).toFixed(2),(sitesYear[4][0]/yearSchool[4]*100).toFixed(2)]
         },
         {
             label: "LinkedIn",
-            fillColor: "rgba(115,169,220,1)",
+            fillColor: "rgba(116,118,220,1)",
             strokeColor: "rgba(151,187,205,0)",
-            highlightFill: "rgba(166,204,255,1)",
+            highlightFill: "rgba(116,118,220,0.8)",
             highlightStroke: "rgba(151,187,205,0)",
-            data: [sitesYear[0][1],sitesYear[1][1],sitesYear[2][1],sitesYear[3][1],sitesYear[4][1]]
+            data: [(sitesYear[0][1]/yearSchool[0]*100).toFixed(2),(sitesYear[1][1]/yearSchool[1]*100).toFixed(2),
+            	(sitesYear[2][1]/yearSchool[2]*100).toFixed(2),(sitesYear[3][1]/yearSchool[3]*100).toFixed(2),(sitesYear[4][1]/yearSchool[4]*100).toFixed(2)]
         },
         {
             label: "Personal",
-            fillColor: "rgba(115,169,220,1)",
+            fillColor: "rgba(219,116,220,1)",
             strokeColor: "rgba(151,187,205,0)",
-            highlightFill: "rgba(166,204,255,1)",
+            highlightFill: "rgba(219,116,220,0.8)",
             highlightStroke: "rgba(151,187,205,0)",
-            data: [sitesYear[0][2],sitesYear[1][2],sitesYear[2][2],sitesYear[3][2],sitesYear[4][2]]
+            data: [(sitesYear[0][2]/yearSchool[0]*100).toFixed(2),(sitesYear[1][2]/yearSchool[1]*100).toFixed(2),
+            	(sitesYear[2][2]/yearSchool[2]*100).toFixed(2),(sitesYear[3][2]/yearSchool[3]*100).toFixed(2),(sitesYear[4][2]/yearSchool[4]*100).toFixed(2)]
         },
         {
             label: "Cool Link",
-            fillColor: "rgba(115,169,220,1)",
+            fillColor: "rgba(43,109,171,1)",
             strokeColor: "rgba(151,187,205,0)",
-            highlightFill: "rgba(166,204,255,1)",
+            highlightFill: "rgba(43,109,171,0.8)",
             highlightStroke: "rgba(151,187,205,0)",
-            data: [sitesYear[0][3],sitesYear[1][3],sitesYear[2][3],sitesYear[3][3],sitesYear[4][3]]
+            data: [(sitesYear[0][3]/yearSchool[0]*100).toFixed(2),(sitesYear[1][3]/yearSchool[1]*100).toFixed(2),
+            	(sitesYear[2][3]/yearSchool[2]*100).toFixed(2),(sitesYear[3][3]/yearSchool[3]*100).toFixed(2),(sitesYear[4][3]/yearSchool[4]*100).toFixed(2)]
         }
     ]
 };
 
 
 var ctx = document.getElementById("sitesYear").getContext("2d");
-var myBarChart = new Chart(ctx).Bar(data, {multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"});
+var myBarChart = new Chart(ctx).Bar(data, {multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>%", barDatasetSpacing : 0,});
 
 // chartjs bar graph for site totals --------------------------------------
 var data = {
