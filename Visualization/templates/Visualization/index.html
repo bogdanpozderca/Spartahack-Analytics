@@ -71,6 +71,11 @@
 				</div>
 			</div>
 
+			<div>
+				<h4 style="color: black; padding-top: 8px;">Distribution by Year in School</h4>
+				<canvas id="schoolYear" height='300px' width='500px'></canvas>
+			</div>
+
 			<h4 id="applyChart" style="position:absolute; left:20%; height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
 			<!-- <div id="genderBar" style="height: 300px; width: 60%; text-align:center;">Hourly Gender Distribution<svg></svg></div> -->
 		</div>
@@ -98,6 +103,7 @@
 		youngest = {{youngest}}  	//for youngest hacker
 		years = {{years}}			//for distribution by age
 		tshirt = {{tshirt|safe}}
+		yearSchool = {{yearSchool|safe}}
 		dayCounts = {{dayCounts|safe}}
 	</script>
 	<script src="{{ STATIC_URL }}js/index.js"></script>

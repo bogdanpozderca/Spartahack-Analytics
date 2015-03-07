@@ -228,6 +228,22 @@ var data = {
 var ctx = document.getElementById("tshirt").getContext("2d");
 var myBarChart = new Chart(ctx).Bar(data);
 
+// chartjs bar graph for year in school --------------------------------------
+var data = {
+    labels: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+'],
+    datasets: [
+        {
+            label: "Distribution by T-shirt Size",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: [yearSchool[0],yearSchool[1],yearSchool[2],yearSchool[3], yearSchool[4]]
+        }
+    ]
+};
+var ctx = document.getElementById("schoolYear").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data);
 
 
 $(document).ready(function(){
