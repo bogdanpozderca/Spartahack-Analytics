@@ -89,11 +89,23 @@ def index(request):
 	oldest = [12,31,9999]
 
 	#rate of applications
-	dayCounts = {};
+	dayCounts = {}
+
+	tshirt = [0,0,0,0]
 
 	total = 0
 	for i in jsonResults["responses"]:
 		total += 1
+
+		#for tshirt sizes
+		if i["answers"][keys["T-Shirt size"]] == 'S':
+			tshirt[0] +=1
+		elif i["answers"][keys["T-Shirt size"]] == 'M':
+			tshirt[1] +=1
+		elif i["answers"][keys["T-Shirt size"]] == 'L':
+			tshirt[2] +=1
+		elif i["answers"][keys["T-Shirt size"]] == 'XL':
+			tshirt[3] +=1
 
 		#for distribution by birth month
 		months[i["answers"][keys["Month"]]] += 1;
@@ -127,18 +139,23 @@ def index(request):
 		college = college.replace(' in ',' ')
 		college = college.replace('  ',' ')
 
-		college = college.replace('high school','highschool')
-		college = college.replace('high schooler','highschool')
-		college = college.replace('highschooler','highschool')
-		college = college.replace('international academy east (hs)','highschool') 
-		college = college.replace('still in hs','highschool')
-		college = college.replace('still hs','highschool')
-		if 'highschool' in college:
-			college = 'highschool'
+		college = college.replace('highschool','high school')
+		college = college.replace('high schooler','high school')
+		college = college.replace('highschooler','high school')
+		college = college.replace('international academy east (hs)','high school') 
+		college = college.replace('north hills','high school') 
+		college = college.replace('still in hs','high school')
+		college = college.replace('still hs','high school')
+		if 'high school' in college:
+			college = 'high school'
+		if 'vincent massey' in college:
+			college = 'high school'
+		if college == 'na':
+			college = 'high school'
 		college = college.replace('na\n','Not Applicable')
 		college = college.replace('rutgers new brunswick','rutgers university')
-		
-		college = college.replace('michigan tech\n','michigan technological university')     #one off fix
+		if college == 'michigan tech':
+			college = 'michigan technological university'
 		college = college.replace('michigan technological institute','michigan technological university')    #one off fix
 		college = college.replace('depaul university chicago','depaul university') #one off fix
 		college = college.replace('havard','harvard university')		#one off fix
@@ -147,12 +164,14 @@ def index(request):
 		college = college.replace('technologyical','technological')		#one off fix
 		college = college.replace('the ohio','ohio')					#fuck that
 		college = college.replace('the ','')							#additional fuck that
+		college = college.replace('purdue','purdue university')
 		college = college.replace('u of','university of')
 		college = college.replace('michigan state','michigan state university')
 		college = college.replace('msu','michigan state university')
 		college = college.replace('um\n','university of michigan')
 		college = college.replace('umich','university of michigan')
-		college = college.replace('michigan\n','university of michigan')
+		if college == 'michigan':
+			college = 'university of michigan'
 		college = college.replace('university of michigan ann arbor','university of michigan')
 		college = college.replace('university university','university')
 		college = college.replace(' ann arbor','')
@@ -193,7 +212,7 @@ def index(request):
 	oldest = json.dumps(oldest)
 	youngest = json.dumps(youngest)
 	years = json.dumps(years)
-	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest, 'dayCounts': json.dumps(dayCounts)}
+	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 'youngest': youngest, 'dayCounts': json.dumps(dayCounts), 'tshirt': json.dumps(tshirt)}
 	return render(request, 'Visualization/index.html', context)
 
 def table(request):

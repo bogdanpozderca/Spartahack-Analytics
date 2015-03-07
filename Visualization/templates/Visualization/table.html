@@ -13,9 +13,95 @@
 	<script src="{{ STATIC_URL }}js/jquery.dynatable.js" type="text/javascript"></script>
 </head>
 <body>
-	<script type="text/javascript">
-		console.log({{tableResults|safe}})
+	<table id="myTable">
+	</table>
+
+<table id="my-final-table">
+  <thead id='fill'>
+<!--   	{%for i in keys%}
+  		<th>{{i}}</th>
+  	{%endfor%} -->
+         <th>name</th>
+        <th>phone number</th>
+        <th>tshirt size</th>
+        <th>day</th>
+        <th>year</th>
+        <th>month</th>
+        <th>gender identity</th>
+        <th>email</th>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+
+	<script type="text/javascript">	
+		x = {{keys|safe}}
+
+		// myRecords = JSON.stringify({{tableResults|safe}})
+		// console.log(myRecords)
+		// $('#myTable').dynatable({
+		//   dataset: {
+		//     records: myRecords
+		//   }
+		// });
+
+		var myRecords2 = [
+		  {
+		    "band": "Weezer",
+		    "song": "El Scorcho"
+		  },
+		  {
+		    "band": "Chevelle",
+		    "song": "Family System"
+		  }
+		];
+		console.log(myRecords2)
+
+		myRecords = [
+    {
+        "name": "Ben Crampton",
+        "phoneNumber": "6166481122",
+        "tshirtSize": "m",
+        "day": "24",
+        "year": "1996",
+        "month": "3",
+        "genderIdentity": "male",
+        "email": "crampt15@msu.edu"
+    },
+    {
+        "name": "Ben Crampton",
+        "phone number": "(616)-648-1122",
+        "t-shirt size": "M",
+        "day": "24",
+        "year": "1996",
+        "month": "3",
+        "gender identity": "Male",
+        "email": "crampt15@msu.edu"
+    },
+    {
+        "name": "Ben Crampton",
+        "phone number": "(616)-648-1122",
+        "t-shirt size": "M",
+        "day": "24",
+        "year": "1996",
+        "month": "3",
+        "gender identity": "Male",
+        "email": "crampt15@msu.edu"
+    }
+]
+		console.log(myRecords)
+
+		$('#my-final-table').dynatable({
+		  dataset: {
+		    records: myRecords
+		  }
+		});
+
+
 	</script>
+
+
 	<!-- <script src="{{ STATIC_URL }}js/table.js"></script> -->
 </body>
 </html>

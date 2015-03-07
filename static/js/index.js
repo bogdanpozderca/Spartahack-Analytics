@@ -211,6 +211,22 @@ var data = {
 var ctx = document.getElementById("gender").getContext("2d");
 var myBarChart = new Chart(ctx).Bar(data);
 
+// chartjs bar graph for tshirts --------------------------------------
+var data = {
+    labels: ['S', 'M', 'L', 'XL'],
+    datasets: [
+        {
+            label: "Distribution by T-shirt Size",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: [tshirt[0],tshirt[1],tshirt[2],tshirt[3]]
+        }
+    ]
+};
+var ctx = document.getElementById("tshirt").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data);
 
 
 
