@@ -116,8 +116,8 @@ function chartConfig(container, data, useGuideline) {
 		    chart = nv.models.stackedAreaChart()
 		                  .useInteractiveGuideline(true)
 		                  .x(function(d) { return d[0] })
-		                  .y(function(d) { return d[1] })
-		                  .color(keyColor);
+		                  .y(function(d) { return d[1] });
+		 
 
 		    chart.xAxis
 		        .tickFormat(function(d) { return d3.time.format('%d-%a:%I%p')(new Date(d)) });
@@ -127,7 +127,7 @@ function chartConfig(container, data, useGuideline) {
 
 		    d3.select('#' + container + ' svg')
 		          .datum(data)
-		        .transition().duration(500).call(chart);
+		        .transition().duration(500).call(chart)
 
 		    nv.utils.windowResize(chart.update);
 
@@ -135,44 +135,18 @@ function chartConfig(container, data, useGuideline) {
 	});
 }
 
-function stackedBarConfig(container, data){
-	nv.addGraph(function() {
-	    var chart = nv.models.multiBarChart();
-
-	    chart.xAxis
-	        .tickFormat(d3.format(',f'));
-
-	    chart.yAxis
-	        .tickFormat(d3.format(',.1f'));
-
-	    d3.select('#' + container + ' svg')
-	        .datum(data)
-	        .transition().duration(500)
-	        .call(chart)
-	        ;
-
-	    nv.utils.windowResize(chart.update);
-
-	    return chart;
-	});
-}
-
 //formating of data from server for app rate chart and bargraph, and gender bar graph
-d3GraphObj =[{"key" : "Male" , "values" : []},{"key" : "Female" , "values" : []}, {"key" : "Non-binary" , "values" : []}]
+d3GraphObj =[{"key" : "Applicants" , "values" : []}]
 maleTotal = 0;
 femaleTotal = 0;
 elseTotal = 0;
-d3BarObj = []
 $.each(dayCounts, function(index, value) {              //index:day value:hour obj
 	$.each(value, function(index2, value2) {			//index2:hour value2: count
 		dateTime = index+'T'+index2+':00:00';
 		dateUTC = Date.parse(new Date(dateTime));
-		d3BarObj.push({'Time': dateUTC, 'Male':value2[1], 'Female':value2[2], 'Non-binary': value2[3]});
-		d3GraphObj[0]["values"].push([dateUTC,value2[1]]);
+		d3GraphObj[0]["values"].push([dateUTC,value2[1]+value2[2]+value2[3]]);
 		maleTotal += value2[1];
-		d3GraphObj[1]["values"].push([dateUTC,value2[2]]);
 		femaleTotal += value2[2];
-		d3GraphObj[2]["values"].push([dateUTC,value2[3]]);
 		elseTotal += value2[3];
 	}); 
 }); 
@@ -183,16 +157,10 @@ for(i=0;i<d3GraphObj.length;i++){
 	})
 }
 
-d3BarObj.sort(function(a, b) { 
-	return a['Time'] - b['Time'];
-})
-
-
 appRate = total/dayCounts.length;
 console.log("Daily Rate of Applicants = " + total/Object.keys(dayCounts).length);
 
 chartConfig("applyChart", d3GraphObj); 
-//chartConfig("genderBar", d3BarObj); 
 
 // chartjs bar graph for gender --------------------------------------
 var data = {
