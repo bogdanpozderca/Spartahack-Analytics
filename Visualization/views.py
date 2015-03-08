@@ -27,7 +27,7 @@ keys = {
 	"Personal Website": "website_4613469", 
 	"Another cool link?": "website_4613471", 
 	"Will this be your first hackathon?": "yesno_4613474", 
-	"If no  what other hackathons have you attended?": "textarea_4613558", 
+	"If no what other hackathons have you attended?": "textarea_4613558", 
 	"Are you willing to mentor?": "yesno_4613478", 
 	"Technologies you're comfortable with": "list_4613658_choice_5343749",
 	"Technologies you're comfortable with 1": "list_4613658_choice_5343750", 
@@ -135,6 +135,11 @@ def index(request):
 	tshirt = [0,0,0,0]
 	yearSchool = [0,0,0,0,0]
 	firstHack = [0,0,0,0,0,0]
+	mentorTotals = [0,0,0,0,0]
+	firstHackMentor = [0,0,0,0,0]
+
+
+	sampleArray=[];
 
 	total = 0
 	for i in jsonResults["responses"]:
@@ -144,34 +149,53 @@ def index(request):
 		if i["answers"][keys["Year in school"]] == 'First Year':
 			yearSchool[0] +=1
 			getSites(i,0)
+			if i["answers"][keys["Are you willing to mentor?"]] == '1':
+				mentorTotals[0] +=1
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[0] +=1
 				firstHack[5] +=1
+				if i["answers"][keys["Are you willing to mentor?"]] == '1':
+					firstHackMentor[0] +=1
 		elif i["answers"][keys["Year in school"]] == 'Second Year':
 			yearSchool[1] +=1
 			getSites(i,1)
+			if i["answers"][keys["Are you willing to mentor?"]] == '1':
+				mentorTotals[1] +=1
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[1] +=1
 				firstHack[5] +=1
+				if i["answers"][keys["Are you willing to mentor?"]] == '1':
+					firstHackMentor[1] +=1
 		elif i["answers"][keys["Year in school"]] == 'Third Year':
 			yearSchool[2] +=1
 			getSites(i,2)
+			if i["answers"][keys["Are you willing to mentor?"]] == '1':
+				mentorTotals[2] +=1
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[2] +=1
 				firstHack[5] +=1
-
+				if i["answers"][keys["Are you willing to mentor?"]] == '1':
+					firstHackMentor[2] +=1
 		elif i["answers"][keys["Year in school"]] == 'Fourth Year':
 			yearSchool[3] +=1
 			getSites(i,3)
+			if i["answers"][keys["Are you willing to mentor?"]] == '1':
+				mentorTotals[3] +=1
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[3] +=1
 				firstHack[5] +=1
+				if i["answers"][keys["Are you willing to mentor?"]] == '1':
+					firstHackMentor[3] +=1
 		elif i["answers"][keys["Year in school"]] == 'Fifth+ Year':
 			yearSchool[4] +=1
 			getSites(i,4)
+			if i["answers"][keys["Are you willing to mentor?"]] == '1':
+				mentorTotals[4] +=1
 			if i["answers"][keys["Will this be your first hackathon?"]] == '1':
 				firstHack[4] +=1
 				firstHack[5] +=1
+				if i["answers"][keys["Are you willing to mentor?"]] == '1':
+					firstHackMentor[4] +=1
 
 		#for tshirt sizes
 		if i["answers"][keys["T-Shirt size"]] == 'S':
@@ -291,7 +315,7 @@ def index(request):
 	context = {"colleges":colleges, "total": total, "months": months, 'years':years, 'oldest':oldest, 
 		'youngest': youngest, 'dayCounts': json.dumps(dayCounts), 'tshirt': json.dumps(tshirt), 
 		'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack),'sites': json.dumps(sites),
-		'sitesYear': json.dumps(sitesYear)}
+		'sitesYear': json.dumps(sitesYear), 'mentorTotals': json.dumps(mentorTotals),'fHackMentor': json.dumps(firstHackMentor)}
 	return render(request, 'Visualization/index.html', context)
 
 def table(request):

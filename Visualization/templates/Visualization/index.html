@@ -74,6 +74,7 @@
 			</div>
 
 			<div id="schoolYear" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto; padding-top: 40px;"></div>
+			<div id="mentorYear" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto; padding-top: 40px;"></div>
 
 			<div width='100%' style="text-align:center; padding-top: 20px;">
 				<div style="display:inline-block; vertical-align:middle;padding-left: 20px;">
@@ -115,12 +116,15 @@
 		years = {{years}}			//for distribution by age
 		tshirt = {{tshirt|safe}}
 		yearSchool = {{yearSchool|safe}}
-		console.log(yearSchool)
 		firstHack = {{firstHack|safe}}
-		sites = {{sites|safe}}	
 		sitesYear = {{sitesYear|safe}}	
-		console.log(sitesYear)
+		sites = {{sites|safe}}	
 		dayCounts = {{dayCounts|safe}}
+		fHackMentor = {{fHackMentor|safe}}
+		mentorTotals = {{mentorTotals|safe}}
+		console.log(fHackMentor)
+		console.log(mentorTotals)
+		mentorTotals[0]
 	</script>
 	<script src="{{ STATIC_URL }}js/index.js"></script>
 </body>
