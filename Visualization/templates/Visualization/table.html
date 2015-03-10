@@ -6,97 +6,347 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
-    <link href="{{ STATIC_URL }}css/jquery.dynatable.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
     <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
-	<script src="{{ STATIC_URL }}js/jquery.dynatable.js" type="text/javascript"></script>
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+    <style type="text/css">
+    th {
+        width: 500px;
+    }
+    </style>
 </head>
 <body>
-	<table id="myTable">
-	</table>
 
-<table id="my-final-table">
-  <thead id='fill'>
-<!--   	{%for i in keys%}
-  		<th>{{i}}</th>
-  	{%endfor%} -->
-         <th>name</th>
-        <th>phone number</th>
-        <th>tshirt size</th>
-        <th>day</th>
-        <th>year</th>
-        <th>month</th>
-        <th>gender identity</th>
-        <th>email</th>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+    <table id="my-final-table" class="display dataTable" cellspacing="50" width="100%" role="grid"  style="width: 100%;">
+      <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Gender identity</th>
+                <th>Month</th>
+                <th>Day</th>
+                <th>Year</th>
+                <th>T-Shirt size</th>
+                <th>Where are you traveling from?</th>
+                <th>What university do you currently attend?</th>
+                <th>What is your major of study?</th>
+                <th>Year in school</th>
+                <th>GitHub</th>
+                <th>LinkedIn</th>
+                <th>Personal Website</th>
+                <th>Another cool link?</th>
+                <th>Will this be your first hackathon?</th>
+                <th>If no what other hackathons have you attended?</th>
+                <th>Are you willing to mentor?</th>
+                <th>Technologies you're comfortable with</th>
+                <th>Technologies you're comfortable with 1</th>
+                <th>Technologies you're comfortable with 2</th>
+                <th>Technologies you're comfortable with 3</th>
+                <th>Technologies you're comfortable with 4</th>
+                <th>Technologies you're comfortable with 5</th>
+                <th>Technologies you're comfortable with 6</th>
+                <th>Technologies you're comfortable with 7</th>
+                <th>Technologies you're comfortable with 8</th>
+                <th>Technologies you're comfortable with 9</th>
+                <th>Technologies you're comfortable with 10</th>
+                <th>Technologies you're comfortable with 11</th>
+                <th>Technologies you're comfortable with 12</th>
+                <th>Technologies you're comfortable with 13</th>
+                <th>Technologies you're comfortable with 14</th>
+                <th>Technologies you're comfortable with 15</th>
+                <th>Technologies you're comfortable with 16</th>
+                <th>Technologies you're comfortable with 17</th>
+                <th>Technologies you're comfortable with 18</th>
+                <th>Technologies you're comfortable with 19</th>
+                <th>Technologies you're comfortable with 20</th>
+                <th>Technologies you're comfortable with 21</th>
+                <th>Technologies you're comfortable with 22</th>
+                <th>Technologies you're comfortable with 23</th>
+                <th>Technologies you're comfortable with 24</th>
+                <th>Technologies you're comfortable with 25</th>
+                <th>Is there any hardware you'd like to hack on?</th>
+                <th>Is there any hardware you'd like to hack on? 1</th>
+                <th>Is there any hardware you'd like to hack on? 2</th>
+                <th>Is there any hardware you'd like to hack on? 3</th>
+                <th>Is there any hardware you'd like to hack on? 4</th>
+                <th>Is there any hardware you'd like to hack on? 5</th>
+                <th>Is there any hardware you'd like to hack on? 6</th>
+                <th>Is there any hardware you'd like to hack on? 7</th>
+                <th>Is there any hardware you'd like to hack on? 8</th>
+                <th>Is there any other hardware you'd like to see at SpartaHack</th>
+                <th>Link and/or description of your favorite project</th>
+                <th>Do you need travel reimbursement to attend?</th>
+                <th>Do you have an dietary restrictions we should be prepared to accommodate?</th>
+                <th>Will you require any special accommodations?</th>
+                <th>Please list the emails of any teammates you are applying with</th>
+            </tr>
+      </thead>
+      <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Gender identity</th>
+                <th>Month</th>
+                <th>Day</th>
+                <th>Year</th>
+                <th>T-Shirt size</th>
+                <th>Where are you traveling from?</th>
+                <th>What university do you currently attend?</th>
+                <th>What is your major of study?</th>
+                <th>Year in school</th>
+                <th>GitHub</th>
+                <th>LinkedIn</th>
+                <th>Personal Website</th>
+                <th>Another cool link?</th>
+                <th>Will this be your first hackathon?</th>
+                <th>If no what other hackathons have you attended?</th>
+                <th>Are you willing to mentor?</th>
+                <th>Technologies you're comfortable with</th>
+                <th>Technologies you're comfortable with 1</th>
+                <th>Technologies you're comfortable with 2</th>
+                <th>Technologies you're comfortable with 3</th>
+                <th>Technologies you're comfortable with 4</th>
+                <th>Technologies you're comfortable with 5</th>
+                <th>Technologies you're comfortable with 6</th>
+                <th>Technologies you're comfortable with 7</th>
+                <th>Technologies you're comfortable with 8</th>
+                <th>Technologies you're comfortable with 9</th>
+                <th>Technologies you're comfortable with 10</th>
+                <th>Technologies you're comfortable with 11</th>
+                <th>Technologies you're comfortable with 12</th>
+                <th>Technologies you're comfortable with 13</th>
+                <th>Technologies you're comfortable with 14</th>
+                <th>Technologies you're comfortable with 15</th>
+                <th>Technologies you're comfortable with 16</th>
+                <th>Technologies you're comfortable with 17</th>
+                <th>Technologies you're comfortable with 18</th>
+                <th>Technologies you're comfortable with 19</th>
+                <th>Technologies you're comfortable with 20</th>
+                <th>Technologies you're comfortable with 21</th>
+                <th>Technologies you're comfortable with 22</th>
+                <th>Technologies you're comfortable with 23</th>
+                <th>Technologies you're comfortable with 24</th>
+                <th>Technologies you're comfortable with 25</th>
+                <th>Is there any hardware you'd like to hack on?</th>
+                <th>Is there any hardware you'd like to hack on? 1</th>
+                <th>Is there any hardware you'd like to hack on? 2</th>
+                <th>Is there any hardware you'd like to hack on? 3</th>
+                <th>Is there any hardware you'd like to hack on? 4</th>
+                <th>Is there any hardware you'd like to hack on? 5</th>
+                <th>Is there any hardware you'd like to hack on? 6</th>
+                <th>Is there any hardware you'd like to hack on? 7</th>
+                <th>Is there any hardware you'd like to hack on? 8</th>
+                <th>Is there any other hardware you'd like to see at SpartaHack</th>
+                <th>Link and/or description of your favorite project</th>
+                <th>Do you need travel reimbursement to attend?</th>
+                <th>Do you have an dietary restrictions we should be prepared to accommodate?</th>
+                <th>Will you require any special accommodations?</th>
+                <th>Please list the emails of any teammates you are applying with</th>
+            </tr>
+      </tfoot>
+    </table>
+
+    <div>
+        <br>Toggle column: <br>
+            <a class="toggle-vis" data-column="0">Name</a><br>
+            <a class="toggle-vis" data-column="1">Email</a><br>
+            <a class="toggle-vis" data-column="2">Phone Number</a><br>
+            <a class="toggle-vis" data-column="3">Gender identity</a><br>
+            <a class="toggle-vis" data-column="4">Month</a><br>
+            <a class="toggle-vis" data-column="5">Day</a><br>
+            <a class="toggle-vis" data-column="6">Year</a><br>
+            <a class="toggle-vis" data-column="7">T-Shirt size</a><br>
+            <a class="toggle-vis" data-column="8">Where are you traveling from?</a><br>
+            <a class="toggle-vis" data-column="9">What university do you currently attend?</a><br>
+            <a class="toggle-vis" data-column="10">What is your major of study?</a><br>
+            <a class="toggle-vis" data-column="11">Year in school</a><br>
+            <a class="toggle-vis" data-column="12">GitHub</a><br>
+            <a class="toggle-vis" data-column="13">LinkedIn</a><br>
+            <a class="toggle-vis" data-column="14">Personal Website</a><br>
+            <a class="toggle-vis" data-column="15">Another cool link?</a><br>
+            <a class="toggle-vis" data-column="16">Will this be your first hackathon?</a><br>
+            <a class="toggle-vis" data-column="17">If no what other hackathons have you attended?</a><br>
+            <a class="toggle-vis" data-column="18">Are you willing to mentor?</a><br>
+            <h4><a class="toggle-tech" >All Technologies you're comfortable with</a><br></h4>
+            <a class="toggle-vis" data-column="19">Technologies you're comfortable with</a><br>
+            <a class="toggle-vis" data-column="20">Technologies you're comfortable with 1</a><br>
+            <a class="toggle-vis" data-column="21">Technologies you're comfortable with 2</a><br>
+            <a class="toggle-vis" data-column="22">Technologies you're comfortable with 3</a><br>
+            <a class="toggle-vis" data-column="23">Technologies you're comfortable with 4</a><br>
+            <a class="toggle-vis" data-column="24">Technologies you're comfortable with 5</a><br>
+            <a class="toggle-vis" data-column="25">Technologies you're comfortable with 6</a><br>
+            <a class="toggle-vis" data-column="26">Technologies you're comfortable with 7</a><br>
+            <a class="toggle-vis" data-column="27">Technologies you're comfortable with 8</a><br>
+            <a class="toggle-vis" data-column="28">Technologies you're comfortable with 9</a><br>
+            <a class="toggle-vis" data-column="29">Technologies you're comfortable with 10</a><br>
+            <a class="toggle-vis" data-column="30">Technologies you're comfortable with 11</a><br>
+            <a class="toggle-vis" data-column="31">Technologies you're comfortable with 12</a><br>
+            <a class="toggle-vis" data-column="32">Technologies you're comfortable with 13</a><br>
+            <a class="toggle-vis" data-column="33">Technologies you're comfortable with 14</a><br>
+            <a class="toggle-vis" data-column="34">Technologies you're comfortable with 15</a><br>
+            <a class="toggle-vis" data-column="35">Technologies you're comfortable with 16</a><br>
+            <a class="toggle-vis" data-column="36">Technologies you're comfortable with 17</a><br>
+            <a class="toggle-vis" data-column="37">Technologies you're comfortable with 18</a><br>
+            <a class="toggle-vis" data-column="38">Technologies you're comfortable with 19</a><br>
+            <a class="toggle-vis" data-column="39">Technologies you're comfortable with 20</a><br>
+            <a class="toggle-vis" data-column="40">Technologies you're comfortable with 21</a><br>
+            <a class="toggle-vis" data-column="41">Technologies you're comfortable with 22</a><br>
+            <a class="toggle-vis" data-column="42">Technologies you're comfortable with 23</a><br>
+            <a class="toggle-vis" data-column="43">Technologies you're comfortable with 24</a><br>
+            <a class="toggle-vis" data-column="44">Technologies you're comfortable with 25</a><br>
+            <h4><a class="toggle-hardware" >All Is there any hardware you'd like to hack on</a><br></h4>
+            <a class="toggle-vis" data-column="45">Is there any hardware you'd like to hack on?</a><br>
+            <a class="toggle-vis" data-column="46">Is there any hardware you'd like to hack on? 1</a><br>
+            <a class="toggle-vis" data-column="47">Is there any hardware you'd like to hack on? 2</a><br>
+            <a class="toggle-vis" data-column="48">Is there any hardware you'd like to hack on? 3</a><br>
+            <a class="toggle-vis" data-column="49">Is there any hardware you'd like to hack on? 4</a><br>
+            <a class="toggle-vis" data-column="50">Is there any hardware you'd like to hack on? 5</a><br>
+            <a class="toggle-vis" data-column="51">Is there any hardware you'd like to hack on? 6</a><br>
+            <a class="toggle-vis" data-column="52">Is there any hardware you'd like to hack on? 7</a><br>
+            <a class="toggle-vis" data-column="53">Is there any hardware you'd like to hack on? 8</a><br>
+            <a class="toggle-vis" data-column="54">Is there any other hardware you'd like to see at SpartaHack</a><br>
+            <a class="toggle-vis" data-column="55">Link and/or description of your favorite project</a><br>
+            <a class="toggle-vis" data-column="56">Do you need travel reimbursement to attend?</a><br>
+            <a class="toggle-vis" data-column="57">Do you have an dietary restrictions we should be prepared to accommodate?</a><br>
+            <a class="toggle-vis" data-column="58">Will you require any special accommodations?</a><br>
+            <a class="toggle-vis" data-column="59">Please list the emails of any teammates you are applying with</a><br>
+    </div>
 
 
 	<script type="text/javascript">	
-		x = {{keys|safe}}
+		data = {{tableResults|safe}}
 
-		// myRecords = JSON.stringify({{tableResults|safe}})
-		// console.log(myRecords)
-		// $('#myTable').dynatable({
-		//   dataset: {
-		//     records: myRecords
-		//   }
-		// });
+        $(document).ready( function () {
+            var table = $('#my-final-table').DataTable({
+                data: data,
+                columns: [
+                    {"data":"Name"},
+                    {"data":"Email"},
+                    {"data":"Phone Number"},
+                    {"data":"Gender identity"},
+                    {"data":"Month"},
+                    {"data":"Day"},
+                    {"data":"Year"},
+                    {"data":"T-Shirt size"},
+                    {"data":"Where are you traveling from?"},
+                    {"data":"What university do you currently attend?"},
+                    {"data":"What is your major of study?"},
+                    {"data":"Year in school"},
+                    {"data":"GitHub"},
+                    {"data":"LinkedIn"},
+                    {"data":"Personal Website"},
+                    {"data":"Another cool link?"},
+                    {"data":"Will this be your first hackathon?"},
+                    {"data":"If no what other hackathons have you attended?"},
+                    {"data":"Are you willing to mentor?"},
+                    {"data":"Technologies you're comfortable with"},
+                    {"data":"Technologies you're comfortable with 1"},
+                    {"data":"Technologies you're comfortable with 2"},
+                    {"data":"Technologies you're comfortable with 3"},
+                    {"data":"Technologies you're comfortable with 4"},
+                    {"data":"Technologies you're comfortable with 5"},
+                    {"data":"Technologies you're comfortable with 6"},
+                    {"data":"Technologies you're comfortable with 7"},
+                    {"data":"Technologies you're comfortable with 8"},
+                    {"data":"Technologies you're comfortable with 9"},
+                    {"data":"Technologies you're comfortable with 10"},
+                    {"data":"Technologies you're comfortable with 11"},
+                    {"data":"Technologies you're comfortable with 12"},
+                    {"data":"Technologies you're comfortable with 13"},
+                    {"data":"Technologies you're comfortable with 14"},
+                    {"data":"Technologies you're comfortable with 15"},
+                    {"data":"Technologies you're comfortable with 16"},
+                    {"data":"Technologies you're comfortable with 17"},
+                    {"data":"Technologies you're comfortable with 18"},
+                    {"data":"Technologies you're comfortable with 19"},
+                    {"data":"Technologies you're comfortable with 20"},
+                    {"data":"Technologies you're comfortable with 21"},
+                    {"data":"Technologies you're comfortable with 22"},
+                    {"data":"Technologies you're comfortable with 23"},
+                    {"data":"Technologies you're comfortable with 24"},
+                    {"data":"Technologies you're comfortable with 25"},
+                    {"data":"Is there any hardware you'd like to hack on?"},
+                    {"data":"Is there any hardware you'd like to hack on? 1"},
+                    {"data":"Is there any hardware you'd like to hack on? 2"},
+                    {"data":"Is there any hardware you'd like to hack on? 3"},
+                    {"data":"Is there any hardware you'd like to hack on? 4"},
+                    {"data":"Is there any hardware you'd like to hack on? 5"},
+                    {"data":"Is there any hardware you'd like to hack on? 6"},
+                    {"data":"Is there any hardware you'd like to hack on? 7"},
+                    {"data":"Is there any hardware you'd like to hack on? 8"},
+                    {"data":"Is there any other hardware you'd like to see at SpartaHack"},
+                    {"data":"Link and/or description of your favorite project"},
+                    {"data":"Do you need travel reimbursement to attend?"},
+                    {"data":"Do you have an dietary restrictions we should be prepared to accommodate?"},
+                    {"data":"Will you require any special accommodations?"},
+                    {"data":"Please list the emails of any teammates you are applying with"}
+                ],
+                "scrollY": "500px",
+                "scrollX": "900px",
+                "paging": false
+            });
 
-		var myRecords2 = [
-		  {
-		    "band": "Weezer",
-		    "song": "El Scorcho"
-		  },
-		  {
-		    "band": "Chevelle",
-		    "song": "Family System"
-		  }
-		];
-		console.log(myRecords2)
+            $('.toggle-vis').on( 'click', function (e) {
+                e.preventDefault();
+         
+                // Get the column API object
+                var column = table.column( $(this).attr('data-column') );
+                if ($(this).text().indexOf(": OFF") >=0){
+                    $(this).text($(this).text().substr(0,$(this).text().indexOf(": OFF")))
+                } else {
+                    $(this).text($(this).text() + ": OFF");
+                }
 
-		myRecords = [
-    {
-        "name": "Ben Crampton",
-        "phoneNumber": "6166481122",
-        "tshirtSize": "m",
-        "day": "24",
-        "year": "1996",
-        "month": "3",
-        "genderIdentity": "male",
-        "email": "crampt15@msu.edu"
-    },
-    {
-        "name": "Ben Crampton",
-        "phone number": "(616)-648-1122",
-        "t-shirt size": "M",
-        "day": "24",
-        "year": "1996",
-        "month": "3",
-        "gender identity": "Male",
-        "email": "crampt15@msu.edu"
-    },
-    {
-        "name": "Ben Crampton",
-        "phone number": "(616)-648-1122",
-        "t-shirt size": "M",
-        "day": "24",
-        "year": "1996",
-        "month": "3",
-        "gender identity": "Male",
-        "email": "crampt15@msu.edu"
-    }
-]
-		console.log(myRecords)
+                
+         
+                // Toggle the visibility
+                column.visible( ! column.visible() );
+            } );
 
-		$('#my-final-table').dynatable({
-		  dataset: {
-		    records: myRecords
-		  }
-		});
+            $('.toggle-tech').on( 'click', function (e) {
+                e.preventDefault();
+                alert("Is loading...too lazy to add loading gif. Will alert when finished. 30 seconds tops")
+                for(i=19; i<45;i++){
+                     var column = table.column(i);
+                    // Toggle the visibility
+                    column.visible( ! column.visible() );
+                }
+                // Get the column API object
+               
+                if ($(this).text().indexOf(": OFF") >=0){
+                    $(this).text($(this).text().substr(0,$(this).text().indexOf(": OFF")))
+                } else {
+                    $(this).text($(this).text() + ": OFF");
+                }
+
+                alert("Is Done")
+            } );
+
+            $('.toggle-hardware').on( 'click', function (e) {
+                e.preventDefault();
+                alert("Is loading...too lazy to add loading gif. Will alert when finished. 30 seconds tops")
+                for(i=45; i<54;i++){
+                     var column = table.column(i);
+                    // Toggle the visibility
+                    column.visible( ! column.visible() );
+                }
+                // Get the column API object
+               
+                if ($(this).text().indexOf(": OFF") >=0){
+                    $(this).text($(this).text().substr(0,$(this).text().indexOf(": OFF")))
+                } else {
+                    $(this).text($(this).text() + ": OFF");
+                }
+
+                alert("Is Done")
+            } );
+
+        } );
+
 
 
 	</script>
@@ -105,3 +355,9 @@
 	<!-- <script src="{{ STATIC_URL }}js/table.js"></script> -->
 </body>
 </html>
+
+
+
+
+
+ 

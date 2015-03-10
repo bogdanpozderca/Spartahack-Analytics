@@ -320,12 +320,9 @@ def index(request):
 
 def table(request):
 	tableResults= []
-	rowModel= {}
-	for question in keys.keys():
-		rowModel[question] = "";
 
 	for i in jsonResults["responses"]:
-		row = rowModel
+		row = {}
 		for question in keys.keys():
 			row[question] = i["answers"][keys[question]]
 
