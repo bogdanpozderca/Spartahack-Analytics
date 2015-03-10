@@ -7,10 +7,12 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.3/css/dataTables.tableTools.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
     <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/tabletools/2.2.3/js/dataTables.tableTools.min.js"></script>
     <style type="text/css">
     </style>
 </head>
@@ -221,6 +223,10 @@
         $(document).ready( function () {
             var table = $('#my-final-table').DataTable({
                 data: data,
+                dom: 'T<"clear">lfrtip',
+                tableTools: {
+                    "sSwfPath": "{{ STATIC_URL }}swf/copy_csv_xls_pdf.swf"
+                },
                 columns: [
                     {"data":"Name"},
                     {"data":"Email"},
