@@ -8,17 +8,27 @@
     <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.3/css/dataTables.tableTools.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/fixedcolumns/3.0.3/css/dataTables.fixedColumns.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/colreorder/1.1.2/css/dataTables.colReorder.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css">
+
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
     <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/tabletools/2.2.3/js/dataTables.tableTools.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/colreorder/1.1.2/js/dataTables.colReorder.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js"></script>
+    
     <style type="text/css">
+	    th, td { white-space: nowrap; }
     </style>
 </head>
 <body>
 <button id="deleteButton" class="btn btn-primary">Click to Remove Selected Applicants</button>
-    <table id="my-final-table" class="display dataTable" cellspacing="50" width="100%" role="grid"  style="width: 100%;">
+<div>Reorder columns by dragging and dropping, yo</div>
+    <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
       <thead>
             <tr>
                 <th>Name</th>
@@ -151,69 +161,9 @@
     
 
     <div>
-        <br>Toggle column: <br>
-            <a class="toggle-vis" data-column="0">Name</a><br>
-            <a class="toggle-vis" data-column="1">Email</a><br>
-            <a class="toggle-vis" data-column="2">Phone Number</a><br>
-            <a class="toggle-vis" data-column="3">Gender identity</a><br>
-            <a class="toggle-vis" data-column="4">Month</a><br>
-            <a class="toggle-vis" data-column="5">Day</a><br>
-            <a class="toggle-vis" data-column="6">Year</a><br>
-            <a class="toggle-vis" data-column="7">T-Shirt size</a><br>
-            <a class="toggle-vis" data-column="8">Where are you traveling from?</a><br>
-            <a class="toggle-vis" data-column="9">What university do you currently attend?</a><br>
-            <a class="toggle-vis" data-column="10">What is your major of study?</a><br>
-            <a class="toggle-vis" data-column="11">Year in school</a><br>
-            <a class="toggle-vis" data-column="12">GitHub</a><br>
-            <a class="toggle-vis" data-column="13">LinkedIn</a><br>
-            <a class="toggle-vis" data-column="14">Personal Website</a><br>
-            <a class="toggle-vis" data-column="15">Another cool link?</a><br>
-            <a class="toggle-vis" data-column="16">Will this be your first hackathon?</a><br>
-            <a class="toggle-vis" data-column="17">If no what other hackathons have you attended?</a><br>
-            <a class="toggle-vis" data-column="18">Are you willing to mentor?</a><br>
+        <br>Toggles: <br>
             <h4><a class="toggle-tech" >All Technologies you're comfortable with</a><br></h4>
-            <a class="toggle-vis" data-column="19">Technologies you're comfortable with</a><br>
-            <a class="toggle-vis" data-column="20">Technologies you're comfortable with 1</a><br>
-            <a class="toggle-vis" data-column="21">Technologies you're comfortable with 2</a><br>
-            <a class="toggle-vis" data-column="22">Technologies you're comfortable with 3</a><br>
-            <a class="toggle-vis" data-column="23">Technologies you're comfortable with 4</a><br>
-            <a class="toggle-vis" data-column="24">Technologies you're comfortable with 5</a><br>
-            <a class="toggle-vis" data-column="25">Technologies you're comfortable with 6</a><br>
-            <a class="toggle-vis" data-column="26">Technologies you're comfortable with 7</a><br>
-            <a class="toggle-vis" data-column="27">Technologies you're comfortable with 8</a><br>
-            <a class="toggle-vis" data-column="28">Technologies you're comfortable with 9</a><br>
-            <a class="toggle-vis" data-column="29">Technologies you're comfortable with 10</a><br>
-            <a class="toggle-vis" data-column="30">Technologies you're comfortable with 11</a><br>
-            <a class="toggle-vis" data-column="31">Technologies you're comfortable with 12</a><br>
-            <a class="toggle-vis" data-column="32">Technologies you're comfortable with 13</a><br>
-            <a class="toggle-vis" data-column="33">Technologies you're comfortable with 14</a><br>
-            <a class="toggle-vis" data-column="34">Technologies you're comfortable with 15</a><br>
-            <a class="toggle-vis" data-column="35">Technologies you're comfortable with 16</a><br>
-            <a class="toggle-vis" data-column="36">Technologies you're comfortable with 17</a><br>
-            <a class="toggle-vis" data-column="37">Technologies you're comfortable with 18</a><br>
-            <a class="toggle-vis" data-column="38">Technologies you're comfortable with 19</a><br>
-            <a class="toggle-vis" data-column="39">Technologies you're comfortable with 20</a><br>
-            <a class="toggle-vis" data-column="40">Technologies you're comfortable with 21</a><br>
-            <a class="toggle-vis" data-column="41">Technologies you're comfortable with 22</a><br>
-            <a class="toggle-vis" data-column="42">Technologies you're comfortable with 23</a><br>
-            <a class="toggle-vis" data-column="43">Technologies you're comfortable with 24</a><br>
-            <a class="toggle-vis" data-column="44">Technologies you're comfortable with 25</a><br>
             <h4><a class="toggle-hardware" >All Is there any hardware you'd like to hack on</a><br></h4>
-            <a class="toggle-vis" data-column="45">Is there any hardware you'd like to hack on?</a><br>
-            <a class="toggle-vis" data-column="46">Is there any hardware you'd like to hack on? 1</a><br>
-            <a class="toggle-vis" data-column="47">Is there any hardware you'd like to hack on? 2</a><br>
-            <a class="toggle-vis" data-column="48">Is there any hardware you'd like to hack on? 3</a><br>
-            <a class="toggle-vis" data-column="49">Is there any hardware you'd like to hack on? 4</a><br>
-            <a class="toggle-vis" data-column="50">Is there any hardware you'd like to hack on? 5</a><br>
-            <a class="toggle-vis" data-column="51">Is there any hardware you'd like to hack on? 6</a><br>
-            <a class="toggle-vis" data-column="52">Is there any hardware you'd like to hack on? 7</a><br>
-            <a class="toggle-vis" data-column="53">Is there any hardware you'd like to hack on? 8</a><br>
-            <a class="toggle-vis" data-column="54">Is there any other hardware you'd like to see at SpartaHack</a><br>
-            <a class="toggle-vis" data-column="55">Link and/or description of your favorite project</a><br>
-            <a class="toggle-vis" data-column="56">Do you need travel reimbursement to attend?</a><br>
-            <a class="toggle-vis" data-column="57">Do you have an dietary restrictions we should be prepared to accommodate?</a><br>
-            <a class="toggle-vis" data-column="58">Will you require any special accommodations?</a><br>
-            <a class="toggle-vis" data-column="59">Please list the emails of any teammates you are applying with</a><br>
     </div>
 
 
@@ -223,7 +173,8 @@
         $(document).ready( function () {
             var table = $('#my-final-table').DataTable({
                 data: data,
-                dom: 'T<"clear">lfrtip',
+                dom: 'TC<"clear">RfrtiS',
+
                 tableTools: {
                     "sSwfPath": "{{ STATIC_URL }}swf/copy_csv_xls_pdf.swf"
                 },
@@ -290,26 +241,19 @@
                     {"data":"Please list the emails of any teammates you are applying with"}
                 ],
                 "scrollY": "500px",
-                "scrollX": "900px",
-                "paging": false
+		        scrollX: '100%',
+		        scrollCollapse: true,
+			    colVis: {
+			        restore: "Restore",
+			        showAll: "Show all",
+			        showNone: "Show none"
+			    },
+			    "deferRender": true
             });
-
-            $('.toggle-vis').on( 'click', function (e) {
-                e.preventDefault();
-         
-                // Get the column API object
-                var column = table.column( $(this).attr('data-column') );
-                if ($(this).text().indexOf(": OFF") >=0){
-                    $(this).text($(this).text().substr(0,$(this).text().indexOf(": OFF")))
-                } else {
-                    $(this).text($(this).text() + ": OFF");
-                }
-
-                
-         
-                // Toggle the visibility
-                column.visible( ! column.visible() );
-            } );
+			
+			new $.fn.dataTable.FixedColumns( table, {
+		        leftColumns: 2
+		    } );
 
             $('.toggle-tech').on( 'click', function (e) {
                 e.preventDefault();
