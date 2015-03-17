@@ -5,10 +5,18 @@ import json
 
 # Create your views here.
 typeFormURL = "https://api.typeform.com/v0/form/Zh7TEH?key=1b508a88a1331cf2c182cb136f6da1ebd880a299&completed=true"
+typeFormRSVP_URL = "https://api.typeform.com/v0/form/SN2HyF?key=1b508a88a1331cf2c182cb136f6da1ebd880a299&completed=true"
 jsonResults = ""
+jsonRSVP_Results = ""
+
 for i in urlopen(typeFormURL):
 	jsonResults += str(i)
 jsonResults = json.loads(jsonResults)
+
+for i in urlopen(typeFormRSVP_URL):
+	jsonRSVP_Results += str(i)
+jsonRSVP_Results = json.loads(jsonRSVP_Results)
+
 keys = {
 	"Name": "textfield_4613064",
 	"Email": "email_4613164",
@@ -70,6 +78,16 @@ keys = {
 	"Do you have an dietary restrictions we should be prepared to accommodate?": "textarea_4613853", 
 	"Will you require any special accommodations?": "textarea_4613879", 
 	"Please list the emails of any teammates you are applying with": "textarea_4613955"
+}
+
+keys2 = {
+	"First Name": "textfield_5368846",
+	"Last Name": "textfield_5368849",
+	"Email": "email_5369105",
+	"Transportation?": "list_5368858_choice",
+	"Month" : "number_4613245",
+	"Where are you traveling from?": "textfield_5368898",
+	"Hacker Code of Conduct": "terms_5369089"
 }
 
 def index(request):
@@ -334,7 +352,69 @@ def table(request):
 	context = {'tableResults': json.dumps(tableResults)}
 	return render(request, 'Visualization/table.html', context)
 
+def rsvp(request):
+	
+	for h in jsonRSVP_Results["responses"]:
+		name = h["answers"][keys2["First Name"]] + " " + h["answers"][keys2["Last Name"]]
+		for i in jsonResults["responses"]:
+			if name == i["answers"][keys["Name"]]:
+				college = i["answers"][keys["What university do you currently attend?"]].lower()
+				college = college.replace(', ',' ')
+				college = college.replace(' - ',' ')
+				college = college.replace('-',' ')
+				college = college.replace(' at ',' ')
+				college = college.replace(' in ',' ')
+				college = college.replace('  ',' ')
 
+				college = college.replace('highschool','high school')
+				college = college.replace('high schooler','high school')
+				college = college.replace('highschooler','high school')
+				college = college.replace('international academy east (hs)','high school') 
+				college = college.replace('north hills','high school') 
+				college = college.replace('still in hs','high school')
+				college = college.replace('still hs','high school')
+				if 'high school' in college:
+					college = 'high school'
+				if 'vincent massey' in college:
+					college = 'high school'
+				if college == 'na':
+					college = 'high school'
+				college = college.replace('na\n','Not Applicable')
+				college = college.replace('rutgers new brunswick','rutgers university')
+				if college == 'michigan tech':
+					college = 'michigan technological university'
+				college = college.replace('michigan technological institute','michigan technological university')    #one off fix
+				college = college.replace('depaul university chicago','depaul university') #one off fix
+				college = college.replace('havard','harvard university')		#one off fix
+				college = college.replace('technolog','technology')				#one off fix
+				college = college.replace('technologyy','technology')			#one off fix
+				college = college.replace('technologyical','technological')		#one off fix
+				college = college.replace('the ohio','ohio')					#fuck that
+				college = college.replace('the ','')							#additional fuck that
+				college = college.replace('purdue','purdue university')
+				college = college.replace('u of','university of')
+				college = college.replace('michigan state','michigan state university')
+				college = college.replace('msu','michigan state university')
+				college = college.replace('um\n','university of michigan')
+				college = college.replace('umich','university of michigan')
+				if college == 'michigan':
+					college = 'university of michigan'
+				college = college.replace('university of michigan ann arbor','university of michigan')
+				college = college.replace('university university','university')
+				college = college.replace(' ann arbor','')
+				college = college.rstrip().strip()
+				try:
+					colleges[college] += 1
+				except KeyError:
+					colleges[college] = 1
+	
+	
+	
+	
+	
+	
+	context = {"colleges":colleges, "total": total}
+	return render(request, 'Visualization/rsvp.html', context)
 
 
 
