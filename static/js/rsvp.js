@@ -37,6 +37,63 @@ function sortBy(thing){
 
 }
 
+//#rate of rsvp -----------------------------------------------------
+var colors = d3.scale.category20();
+var keyColor = function(d, i) {return colors(d.key)};
+
+function chartConfig(container, data, useGuideline) {
+  	if (useGuideline === undefined) useGuideline = true;
+		nv.addGraph(function() {
+		    var chart;
+		    chart = nv.models.stackedAreaChart()
+		                  .useInteractiveGuideline(true)
+		                  .x(function(d) { return d[0] })
+		                  .y(function(d) { return d[1] });
+		 
+
+		    chart.xAxis
+		        .tickFormat(function(d) { return d3.time.format('%d-%a:%I%p')(new Date(d)) });
+
+		    chart.yAxis
+		        .tickFormat(d3.format('.2g'));
+
+		    d3.select('#' + container + ' svg')
+		          .datum(data)
+		        .transition().duration(500).call(chart)
+
+		    nv.utils.windowResize(chart.update);
+
+		    return chart;
+	});
+}
+
+//formating of data from server for rsvp rate chart and bargraph, and gender bar graph
+d3GraphObj =[{"key" : "Applicants" , "values" : []}]
+maleTotal = 0;
+femaleTotal = 0;
+elseTotal = 0;
+$.each(dayCounts, function(index, value) {              //index:day value:hour obj
+	$.each(value, function(index2, value2) {			//index2:hour value2: count
+		dateTime = index+'T'+index2+':00:00';
+		dateUTC = Date.parse(new Date(dateTime));
+		d3GraphObj[0]["values"].push([dateUTC,value2[1]+value2[2]+value2[3]]);
+		maleTotal += value2[1];
+		femaleTotal += value2[2];
+		elseTotal += value2[3];
+	}); 
+}); 
+
+for(i=0;i<d3GraphObj.length;i++){
+	d3GraphObj[i]['values'].sort(function(a, b) { 
+		return a[0] - b[0];
+	})
+}
+
+appRate = total/dayCounts.length;
+console.log("Daily Rate of Applicants = " + total/Object.keys(dayCounts).length);
+
+chartConfig("applyChart", d3GraphObj); 
+
 // chartjs bar graph for gender --------------------------------------
 var data = {
     labels: ['Male', 'Female', 'Non-Binary'],
@@ -47,7 +104,7 @@ var data = {
             strokeColor: "rgba(151,187,205,0)",
             highlightFill: "rgba(92,92,97,1)",
             highlightStroke: "rgba(151,187,205,0)",
-            data: [male,female,nonbinary]
+            data: [maleTotal,femaleTotal,elseTotal]
         }
     ]
 };

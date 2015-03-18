@@ -398,6 +398,9 @@ def rsvp(request):
 
 	total = 0
 
+	#rate of rsvp
+	dayCounts = {}
+
 	#find fake rsvps
 	everyone = []
 	matched= []
@@ -535,15 +538,33 @@ def rsvp(request):
 				except KeyError:
 					colleges[college] = 1
 
-				matched.append({'name':name,'email':email})
-
+				dateTime = i['metadata']['date_submit'].split()
+				date = dateTime[0]
+				timeList = dateTime[1].split(':')
+				hour = timeList[0]
 				gender = i["answers"][keys["Gender identity"]];
-				if gender == 'Male':
-					male +=1
-				elif gender == 'Female':
-					female +=1
-				else:
-					other +=1
+
+				if date in dayCounts.keys():
+					dayCounts[date][hour][0] +=1
+					if gender == 'Male':
+						dayCounts[date][hour][1] +=1
+					elif gender == 'Female':
+						dayCounts[date][hour][2] +=1
+					else:
+						dayCounts[date][hour][3] +=1
+				else: 
+					dayCounts[date]={'00':[0,0,0,0], '01':[0,0,0,0], '02':[0,0,0,0], '03':[0,0,0,0], '04':[0,0,0,0], 
+									'05':[0,0,0,0], '06':[0,0,0,0], '07':[0,0,0,0], '08':[0,0,0,0], '09':[0,0,0,0], 
+									'10':[0,0,0,0], '11':[0,0,0,0], '12':[0,0,0,0], '13':[0,0,0,0], '14':[0,0,0,0],
+									'15':[0,0,0,0], '16':[0,0,0,0], '17':[0,0,0,0], '18':[0,0,0,0], '19':[0,0,0,0], 
+									'20':[0,0,0,0], '21':[0,0,0,0], '22':[0,0,0,0], '23':[0,0,0,0]}
+					dayCounts[date][hour][0] += 1
+					if gender == 'Male':
+						dayCounts[date][hour][1] +=1
+					elif gender == 'Female':
+						dayCounts[date][hour][2] +=1
+					else:
+						dayCounts[date][hour][3] +=1
 
 	for x in matched:
 		for y in everyone:
@@ -556,7 +577,7 @@ def rsvp(request):
 	
 	
 	
-	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'male':male,'female':female,"other":other, 
+	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'dayCounts': json.dumps(dayCounts), 
 				'tshirt': json.dumps(tshirt), 'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack),
 				'mentorTotals': json.dumps(mentorTotals),'fHackMentor': json.dumps(firstHackMentor),'sites': json.dumps(sites),
 				'sitesYear': json.dumps(sitesYear),}

@@ -7,8 +7,8 @@
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!--     <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
-    <script src="{{ STATIC_URL }}js/nv.d3.js"></script> -->
+    <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
+    <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
 	<script src="{{ STATIC_URL }}js/Chart.js" type="text/javascript"></script>
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
@@ -73,6 +73,8 @@
 			</div>
 		</div>
 
+		<h4 id="applyChart" style="position:absolute; left:20%; height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
+
 	</div>
 	<script type="text/javascript">
 		window.listOfColleges = [
@@ -87,9 +89,6 @@
 		console.log("Unmatched:")
 		console.log(unmatched)
 
-		male = {{male}}
-		female = {{female}}
-		nonbinary = {{other}}
 		tshirt = {{tshirt|safe}}
 		yearSchool = {{yearSchool|safe}}
 		firstHack = {{firstHack|safe}}
@@ -97,6 +96,7 @@
 		mentorTotals = {{mentorTotals|safe}}
 		sitesYear = {{sitesYear|safe}}	
 		sites = {{sites|safe}}	
+		dayCounts = {{dayCounts|safe}}
 
 
 		
