@@ -558,7 +558,8 @@ def rsvp(request):
 	
 	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'male':male,'female':female,"other":other, 
 				'tshirt': json.dumps(tshirt), 'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack),
-				'mentorTotals': json.dumps(mentorTotals),'fHackMentor': json.dumps(firstHackMentor)}
+				'mentorTotals': json.dumps(mentorTotals),'fHackMentor': json.dumps(firstHackMentor),'sites': json.dumps(sites),
+				'sitesYear': json.dumps(sitesYear),}
 	return render(request, 'Visualization/rsvp.html', context)
 
 
