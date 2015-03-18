@@ -353,11 +353,23 @@ def table(request):
 	return render(request, 'Visualization/table.html', context)
 
 def rsvp(request):
-	
+	# college totals
+	colleges = {}
+
+	total = 0
+
+	everyone = []
+	matched= []
+	unmatched = []
+
 	for h in jsonRSVP_Results["responses"]:
 		name = h["answers"][keys2["First Name"]] + " " + h["answers"][keys2["Last Name"]]
+		name = name.replace('  ', ' ')
+		email = h["answers"][keys2["Email"]]
+		everyone.append({'name':name,'email':email})
 		for i in jsonResults["responses"]:
-			if name == i["answers"][keys["Name"]]:
+			if name == i["answers"][keys["Name"]] or email == i["answers"][keys["Email"]]:
+				total +=1
 				college = i["answers"][keys["What university do you currently attend?"]].lower()
 				college = college.replace(', ',' ')
 				college = college.replace(' - ',' ')
@@ -407,13 +419,21 @@ def rsvp(request):
 					colleges[college] += 1
 				except KeyError:
 					colleges[college] = 1
+
+				matched.append({'name':name,'email':email})
+
+	for x in matched:
+		for y in everyone:
+			if x['name'] == y['name'] or x['email'] == y['email']:
+				everyone.remove(y)
+
 	
 	
 	
 	
 	
 	
-	context = {"colleges":colleges, "total": total}
+	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone)}
 	return render(request, 'Visualization/rsvp.html', context)
 
 
