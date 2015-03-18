@@ -367,6 +367,8 @@ def rsvp(request):
 	female =0
 	other =0
 
+	tshirt = [0,0,0,0]
+
 	for h in jsonRSVP_Results["responses"]:
 		name = h["answers"][keys2["First Name"]] + " " + h["answers"][keys2["Last Name"]]
 		name = name.replace('  ', ' ')
@@ -375,6 +377,20 @@ def rsvp(request):
 		for i in jsonResults["responses"]:
 			if name == i["answers"][keys["Name"]] or email == i["answers"][keys["Email"]]:
 				total +=1
+
+				#for tshirt sizes
+				if i["answers"][keys["T-Shirt size"]] == 'S':
+					tshirt[0] +=1
+				elif i["answers"][keys["T-Shirt size"]] == 'M':
+					tshirt[1] +=1
+				elif i["answers"][keys["T-Shirt size"]] == 'L':
+					tshirt[2] +=1
+				elif i["answers"][keys["T-Shirt size"]] == 'XL':
+					tshirt[3] +=1
+
+
+
+
 				college = i["answers"][keys["What university do you currently attend?"]].lower()
 				college = college.replace(', ',' ')
 				college = college.replace(' - ',' ')
@@ -446,7 +462,7 @@ def rsvp(request):
 	
 	
 	
-	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'male':male,'female':female,"other":other}
+	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'male':male,'female':female,"other":other, 'tshirt': json.dumps(tshirt)}
 	return render(request, 'Visualization/rsvp.html', context)
 
 
