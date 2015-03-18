@@ -8,9 +8,9 @@
     <link href="{{ STATIC_URL }}css/nv.d3.css" rel="stylesheet" type="text/css">
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <!--     <script src="{{ STATIC_URL }}js/d3.v3.js"></script>
-    <script src="{{ STATIC_URL }}js/nv.d3.js"></script>
+    <script src="{{ STATIC_URL }}js/nv.d3.js"></script> -->
 	<script src="{{ STATIC_URL }}js/Chart.js" type="text/javascript"></script>
-	<script src="http://code.highcharts.com/highcharts.js"></script>
+<!-- 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script> -->
 </head>
 <body>
@@ -44,6 +44,13 @@
 				</center>
 			</div>
 		</div>
+		
+		<div width='100%' style="text-align:center; padding-top: 20px;">
+			<div style="display:inline-block; vertical-align:middle;padding-left: 20px;">
+				<h4 style="color: black; padding-top: 8px;">Distribution by Gender</h4>
+				<canvas id="gender" height='300px' width='500px'></canvas>
+			</div>
+		</div>
 
 	</div>
 	<script type="text/javascript">
@@ -59,49 +66,13 @@
 		console.log("Unmatched:")
 		console.log(unmatched)
 
-		function sortBy(thing){
-			if(thing == "number"){
-				window.listOfColleges.sort(function(a, b) { 
-				    return b.number - a.number;
-				})
-			}
-			if(thing == 'name'){
-				window.listOfColleges.sort(function(a, b){
-					if(a.school < b.school) return -1;
-					if(a.school > b.school) return 1;
-				})
-			}
-			var strToAdd = "";
-			var strToAdd2 ="";
-			var rowCount = 0;
-			var totalUni = window.listOfColleges.length/2;
-			$(window.listOfColleges).each(function(i,e,a){
-				if(parseInt(e.number) >14){
-					if (rowCount > parseInt(totalUni)){
-						strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number' style='text-align:right;'><strong>"+e.number+"</strong></td></tr>";
-					} else {
-						strToAdd += "<tr><td class = 'school' style='padding-right:15px'><strong>"+e.school+"</strong></td><td class = 'number' style='text-align:right;'><strong>"+e.number+"</strong></td></tr>";
-					}
-					rowCount++;
-				} else {
-					if (rowCount > parseInt(totalUni)){
-						strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number' style='text-align:right;'>"+e.number+"</td></tr>";
-					} else {
-						strToAdd += "<tr><td class = 'school' style='padding-right:15px'>"+e.school+"</td><td class = 'number' style='text-align:right;'>"+e.number+"</td></tr>";
-					}
-					rowCount++;
-				}
-			});
-			strToAdd2 += "<tr><td class = 'school' style='padding-right:15px'><strong>Total</strong></td><td class = 'number' style='text-align:right;'><strong>"+total+"</strong></td></tr>"
-			$("#data").html(strToAdd);
-			$("#data2").html(strToAdd2);
+		male = {{male}}
+		female = {{female}}
+		nonbinary = {{other}}
 
-		}
 
-		$(document).ready(function(){
-			sortBy('number');
-		}); 
 		
 	</script>
+	<script src="{{ STATIC_URL }}js/rsvp.js"></script>
 </body>
 </html>

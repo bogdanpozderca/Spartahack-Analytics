@@ -358,9 +358,14 @@ def rsvp(request):
 
 	total = 0
 
+	#find fake rsvps
 	everyone = []
 	matched= []
-	unmatched = []
+
+	#for gender distribution
+	male =0
+	female =0
+	other =0
 
 	for h in jsonRSVP_Results["responses"]:
 		name = h["answers"][keys2["First Name"]] + " " + h["answers"][keys2["Last Name"]]
@@ -422,6 +427,14 @@ def rsvp(request):
 
 				matched.append({'name':name,'email':email})
 
+				gender = i["answers"][keys["Gender identity"]];
+				if gender == 'Male':
+					male +=1
+				elif gender == 'Female':
+					female +=1
+				else:
+					other +=1
+
 	for x in matched:
 		for y in everyone:
 			if x['name'] == y['name'] or x['email'] == y['email']:
@@ -433,7 +446,7 @@ def rsvp(request):
 	
 	
 	
-	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone)}
+	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'male':male,'female':female,"other":other}
 	return render(request, 'Visualization/rsvp.html', context)
 
 
