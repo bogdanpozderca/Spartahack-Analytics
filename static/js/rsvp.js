@@ -71,6 +71,81 @@ var data = {
 var ctx = document.getElementById("tshirt").getContext("2d");
 var myBarChart = new Chart(ctx).Bar(data);
 
+// chartjs bar graph for year in school --------------------------------------
+$(function () {
+    $('#schoolYear').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Distribution by Year in School'
+        },
+        xAxis: {
+            categories: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total Applicants by Year'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'First Hackathon',
+            data: [firstHack[0],firstHack[1],firstHack[2],firstHack[3], firstHack[4]]
+        }, {
+            name: 'Not First',
+            data: [yearSchool[0]-firstHack[0],yearSchool[1]-firstHack[1],yearSchool[2]-firstHack[2],yearSchool[3]-firstHack[3],yearSchool[4]-firstHack[4]]
+        }]
+    });
+});
+
+// chartjs bar graph for year in school --------------------------------------
+$(function () {
+    $('#mentorYear').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: '% Mentors By Year'
+        },
+        xAxis: {
+            categories: ['Freshman', 'Sophomore', 'Junior', 'Senior', '+']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '% Willing to Mentors by Year'
+            }
+        },
+        legend: {
+            reversed: true
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'First Hackathon',
+            data: [Math.floor(fHackMentor[0]/yearSchool[0]*10000)/100,Math.floor(fHackMentor[1]/yearSchool[1]*10000)/100,
+            	Math.floor(fHackMentor[2]/yearSchool[2]*10000)/100,Math.floor(fHackMentor[3]/yearSchool[3]*10000)/100, 
+            	Math.floor(fHackMentor[4]/yearSchool[4]*10000)/100]
+        },{
+            name: 'Not First',
+            data: [Math.floor((mentorTotals[0]-fHackMentor[0])/yearSchool[0]*10000)/100,Math.floor((mentorTotals[1]-fHackMentor[1])/yearSchool[1]*10000)/100,
+            	Math.floor((mentorTotals[2]-fHackMentor[2])/yearSchool[2]*10000)/100,Math.floor((mentorTotals[3]-fHackMentor[3])/yearSchool[3]*10000)/100, 
+            	Math.floor((mentorTotals[4]-fHackMentor[4])/yearSchool[4]*10000)/100]
+        }]
+    });
+});
 
 $(document).ready(function(){
 	sortBy('number');
