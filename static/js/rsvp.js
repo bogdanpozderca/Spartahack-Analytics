@@ -131,7 +131,7 @@ function chartConfig(container, data, useGuideline) {
 }
 
 //formating of data from server for rsvp rate chart and bargraph, and gender bar graph
-d3GraphObj =[{"key" : "Applicants" , "values" : []}]
+d3GraphObj =[{"key" : "RSVPs" , "values" : []}]
 maleTotal = 0;
 femaleTotal = 0;
 elseTotal = 0;
@@ -153,7 +153,7 @@ for(i=0;i<d3GraphObj.length;i++){
 }
 
 appRate = total/dayCounts.length;
-console.log("Daily Rate of Applicants = " + total/Object.keys(dayCounts).length);
+console.log("Daily Rate of RSVPs = " + total/Object.keys(dayCounts).length);
 
 chartConfig("applyChart", d3GraphObj); 
 
@@ -206,7 +206,7 @@ $(function () {
         yAxis: {
             min: 0,
             title: {
-                text: 'Total Applicants by Year'
+                text: 'Total RSVPs by Year'
             }
         },
         legend: {

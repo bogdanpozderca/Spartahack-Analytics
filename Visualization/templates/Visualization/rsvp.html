@@ -27,7 +27,7 @@
 						<thead>
 							<tr>
 								<th onclick="sortBy('name');" >University</th>
-								<th onclick="sortBy('number');">Applicants</th>
+								<th onclick="sortBy('number');">RSVPs</th>
 							</tr>
 						</thead>
 						<tbody id = "data"></tbody>
@@ -36,7 +36,7 @@
 						<thead>
 							<tr>
 								<th onclick="sortBy('name');" >University</th>
-								<th onclick="sortBy('number');">Applicants</th>
+								<th onclick="sortBy('number');">RSVPs</th>
 							</tr>
 						</thead>
 						<tbody id = "data2"></tbody>
@@ -89,7 +89,7 @@
 			</div>
 		</div>
 
-		<h4 id="applyChart" style="position:absolute; left:20%; height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">Application Rate with Gender Distribution<svg></svg></h4>
+		<h4 id="applyChart" style="position:absolute; left:20%; height: 300px; width: 60%; text-align:center; color: black; padding-top: 8px;">RSVP Rate with Gender Distribution<svg></svg></h4>
 
 	</div>
 	<script type="text/javascript">
@@ -100,7 +100,7 @@
 		];
 		unmatched = {{unmatched|safe}}
 
-		total = {{total}}; //total applicants
+		total = {{total}}; //total RSVPs
 		
 		console.log("Unmatched:")
 		console.log(unmatched)
