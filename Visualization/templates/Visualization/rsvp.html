@@ -45,6 +45,22 @@
 			</div>
 		</div>
 
+		<div id='ages' width='100%' style="text-align:center; padding-top: 20px;">
+			<div style="display:inline-block; vertical-align:middle; padding-right: 20px;">
+				<h4 style="color: black; padding-top: 8px;">Distribution by Birth Month</h4>
+				<canvas id="myChart" height='340px' width='500px'></canvas>
+			</div>
+			<div style="display:inline-block; vertical-align:middle;padding-left: 20px;">
+				<h4 style="color: black; padding-top: 8px;">Distribution by Age</h4>
+				<canvas id="ageChart" height='300px' width='500px'></canvas>
+				
+				<div>
+					<div id="old"></div>
+					<div id="young"></div>
+				</div>
+			</div>
+		</div>
+
 		<div width='100%' style="text-align:center; padding-top: 20px;">
 			<div style="display:inline-block; vertical-align:middle;padding-left: 20px;">
 				<h4 style="color: black; padding-top: 8px;">Distribution by Gender</h4>
@@ -89,6 +105,19 @@
 		console.log("Unmatched:")
 		console.log(unmatched)
 
+		months = [ 									//for distribution by month
+			{%for key, value in months.items%}
+			["{{key}}",{{value}}],
+			{%endfor%}
+		]
+		console.log(months)
+		months.sort(function(a, b) { 
+			return a[0] - b[0];
+		})
+
+		oldest = {{oldest}}  		//for oldest hacker
+		youngest = {{youngest}}  	//for youngest hacker
+		years = {{years}}			//for distribution by age
 		tshirt = {{tshirt|safe}}
 		yearSchool = {{yearSchool|safe}}
 		firstHack = {{firstHack|safe}}

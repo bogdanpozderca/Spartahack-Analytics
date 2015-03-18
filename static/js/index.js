@@ -60,8 +60,8 @@ var myBarChart = new Chart(ctx).Bar(data);
 
 
 //format oldest and youngest -----------------------------------------------
-$('#old').html('The oldest attendee was born on '+oldest[0]+'/'+oldest[1]+'/'+oldest[2]);
-$('#young').html('The youngest attendee was born on '+youngest[0]+'/'+youngest[1]+'/'+youngest[2]);
+$('#old').html('The oldest applicant was born on '+oldest[0]+'/'+oldest[1]+'/'+oldest[2]);
+$('#young').html('The youngest applicant was born on '+youngest[0]+'/'+youngest[1]+'/'+youngest[2]);
 
 
 //#distribution by age -----------------------------------------------------

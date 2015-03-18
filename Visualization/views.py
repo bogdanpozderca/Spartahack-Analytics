@@ -396,6 +396,15 @@ def rsvp(request):
 	# college totals
 	colleges = {}
 
+	#birth month
+	months = {'1':0,'2':0,'3':0,'4':0,'5':0,'6':0,'7':0,'8':0,'9':0,'10':0,'11':0,'12':0}
+	
+	#distribution by age
+	years = []
+
+	youngest = [0,0,0]
+	oldest = [12,31,9999]
+
 	total = 0
 
 	#rate of rsvp
@@ -487,6 +496,28 @@ def rsvp(request):
 						if i["answers"][keys["Are you willing to mentor?"]] == '1':
 							firstHackMentor[4] +=1
 
+				#for distribution by birth month
+				months[i["answers"][keys["Month"]]] += 1;
+
+				#find oldest and youngest
+				if int(i["answers"][keys["Year"]]) < 100:
+					i["answers"][keys["Year"]] = '19' + i["answers"][keys["Year"]];
+
+				years.append(int(i["answers"][keys["Year"]]))
+
+				if int(i["answers"][keys["Year"]]) <= oldest[2]:
+					oldest[2] = int(i["answers"][keys["Year"]])
+					if int(i["answers"][keys["Month"]]) <= oldest[1]:
+						oldest[1] = int(i["answers"][keys["Month"]])
+						if int(i["answers"][keys["Day"]]) <= oldest[0]:
+							oldest[0] = int(i["answers"][keys["Day"]])
+				
+				if int(i["answers"][keys["Year"]]) >= youngest[2]:
+					youngest[2] = int(i["answers"][keys["Year"]])
+					if int(i["answers"][keys["Month"]]) >= youngest[1]:
+						youngest[1] = int(i["answers"][keys["Month"]])
+						if int(i["answers"][keys["Day"]]) >= youngest[0]:
+							youngest[0] = int(i["answers"][keys["Day"]])
 
 				college = i["answers"][keys["What university do you currently attend?"]].lower()
 				college = college.replace(', ',' ')
@@ -580,7 +611,8 @@ def rsvp(request):
 	context = {"colleges":colleges, "total": total, "unmatched": json.dumps(everyone), 'dayCounts': json.dumps(dayCounts), 
 				'tshirt': json.dumps(tshirt), 'yearSchool': json.dumps(yearSchool),'firstHack': json.dumps(firstHack),
 				'mentorTotals': json.dumps(mentorTotals),'fHackMentor': json.dumps(firstHackMentor),'sites': json.dumps(sites),
-				'sitesYear': json.dumps(sitesYear),}
+				'sitesYear': json.dumps(sitesYear), "months": months, 'years':years, 'oldest':oldest, 
+				'youngest': youngest,}
 	return render(request, 'Visualization/rsvp.html', context)
 
 

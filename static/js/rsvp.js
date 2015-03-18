@@ -37,6 +37,69 @@ function sortBy(thing){
 
 }
 
+// chartjs bar graph for birth months --------------------------------------
+var data = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    datasets: [
+        {
+            label: "Distribution by Birth Month",
+            fillColor: "rgba(115,169,220,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(166,204,255,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: [months[0][1], months[1][1], months[2][1], months[3][1], months[4][1], months[5][1], months[6][1], months[7][1], months[8][1], months[9][1], months[10][1], months[11][1]]
+        }
+    ]
+};
+var ctx = document.getElementById("myChart").getContext("2d");
+var myBarChart = new Chart(ctx).Bar(data);
+
+
+//format oldest and youngest -----------------------------------------------
+$('#old').html('The oldest attendee was born on '+oldest[0]+'/'+oldest[1]+'/'+oldest[2]);
+$('#young').html('The youngest attendee was born on '+youngest[0]+'/'+youngest[1]+'/'+youngest[2]);
+
+
+//#distribution by age -----------------------------------------------------
+years.sort(function(a, b) { 
+	return b - a;
+})
+
+yearsObj = {}
+//counts all the years
+for(i=0;i<years.length;i++){
+	if(!yearsObj[years[i]]){
+		yearsObj[years[i]] = 1;
+	} else {
+		yearsObj[years[i]]++;
+	}
+}
+
+yearsArray = Object.keys(yearsObj);
+CurrentYear = new Date().getFullYear();
+ageArray = [];
+countArray = [];
+for(i=0;i<yearsArray.length;i++){
+	ageArray.push(CurrentYear - yearsArray[i]);
+	countArray.push(yearsObj[yearsArray[i]]);
+}
+
+var data2 = {
+    labels: ageArray.reverse(),
+    datasets: [
+        {
+            label: "Distribution by Age",
+            fillColor: "rgba(69,69,74,1)",
+            strokeColor: "rgba(151,187,205,0)",
+            highlightFill: "rgba(92,92,97,1)",
+            highlightStroke: "rgba(151,187,205,0)",
+            data: countArray.reverse()
+        }
+    ]
+};
+var ctx = document.getElementById("ageChart").getContext("2d");
+var myBarChart2 = new Chart(ctx).Bar(data2);
+
 //#rate of rsvp -----------------------------------------------------
 var colors = d3.scale.category20();
 var keyColor = function(d, i) {return colors(d.key)};
