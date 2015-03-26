@@ -616,5 +616,29 @@ def rsvp(request):
 	return render(request, 'Visualization/rsvp.html', context)
 
 
+def cool(request):
+	links = {}
+	for i in jsonResults["responses"]:
+		cool = i["answers"][keys["Another cool link?"]]
+		cool = cool.replace('  ','')
+		cool = cool.replace(' ','')
+		cool = cool.replace('http://','')
+		cool = cool.replace('https://','')
+		cool = cool.replace('www.','')
+		if len(cool):
+			if cool in links:
+				links[cool] += 1
+			else:
+				links[cool] = 1
+
+
+
+
+
+
+	context = {'links': json.dumps(links)}
+	return render(request, 'Visualization/cool.html', context)
+
+
 
 

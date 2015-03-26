@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<title>Applicant Visualization</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<div class="links" style="width: 1200px"></div>
+
+	<script type="text/javascript">
+
+		links = {{links|safe}}
+		var sortable = [];
+		for (var link in links)
+		      sortable.push([link, links[link]])
+		sortable.sort(function(a, b) {return b[1] - a[1]})
+		for(i=0;i<sortable.length;i++){
+			$('.links').append('<div><a href=http://'+sortable[i][0]+'>'+sortable[i][0]+'</a> : <div style="float:right">'+ sortable[i][1] + ' </div>')
+		}
+
+	</script>
+</body>
+</html>
+

@@ -11,5 +11,6 @@ urlpatterns = patterns('',
     url(r'^$', 'Visualization.views.index'),
     url(r'^esi232.html$', 'Visualization.views.table', name='table'),
 	url(r'^rsvp.html$', 'Visualization.views.rsvp', name='rspv'),
+	url(r'^cool.html$', 'Visualization.views.cool', name='cool'),
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_URL, 'show_indexes': True})
 )
