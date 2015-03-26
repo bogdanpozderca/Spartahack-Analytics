@@ -18,7 +18,7 @@
 		      sortable.push([link, links[link]])
 		sortable.sort(function(a, b) {return b[1] - a[1]})
 		for(i=0;i<sortable.length;i++){
-			$('.links').append('<div><a href=http://'+sortable[i][0]+'>'+sortable[i][0]+'</a> : <div style="float:right">'+ sortable[i][1] + ' </div>')
+			$('.links').append('<div><a href="http://'+sortable[i][0]+'">"'+sortable[i][0]+'"</a> : <div style="float:right">'+ sortable[i][1] + ' </div>')
 		}
 
 	</script>
